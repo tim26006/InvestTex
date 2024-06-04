@@ -1,1 +1,1 @@
-# GaspropAI
+# Решение команды Decode
