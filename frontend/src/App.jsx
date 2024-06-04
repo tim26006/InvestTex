@@ -1,15 +1,15 @@
 import { useState } from 'react'
-
+import Promt from './components/Promt'
+import Header from './components/Header';
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <>
-  <h1 class="text-3xl font-bold underline">
-    Hello world!
-  </h1>
-    </>
+    <div>
+    <Header />
+    <Promt />
+  </div>
   )
 }
 

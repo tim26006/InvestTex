@@ -9,3 +9,14 @@
   font-weight: 400;
 }
 
+
+.ant-card-body > * {
+  margin-bottom: 16px;
+}
+
+.card_promt {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
