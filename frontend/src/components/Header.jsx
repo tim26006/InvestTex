@@ -1,5 +1,5 @@
 import { useState } from 'react'
-
+import logo from './img/logo.jpg';
 
 
 
@@ -8,8 +8,8 @@ function Header() {
     const [count, setCount] = useState(0)
   
     return (
-        <div>
-        <img src="./img/log.jpg" alt="Your Image" />
+        <div className="logo_promt">
+          <img src={logo} alt="Your Image"/>
         </div>
     )
   }

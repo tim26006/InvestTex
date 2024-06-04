@@ -16,9 +16,9 @@ function Promt() {
         textAlign: 'center',
       }}
     >
-      <Input placeholder="Заголовок"/>
-      <Input placeholder="Заголовок"/>
-      <Input placeholder="Заголовок"/>
+      <Input placeholder="Данные"/>
+      <Input placeholder="Данные"/>
+      <Input placeholder="Данные"/>
       <Button type="primary" size="large">
          Генерация
       </Button>
