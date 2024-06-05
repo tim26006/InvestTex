@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Input, Button  } from "antd";
 
-
+import send_img from './img/send.png';
 
 
 function Input_screan() {
@@ -9,10 +9,10 @@ function Input_screan() {
   
     return (
       <div className='input'>
-         <Input placeholder="Опишите, что вам нужно...." style={{
+         <Input placeholder="Опишите, что вам необходимо...." style={{
         fontWeight: 'bold'
         }} />
-         <Button>Отправить</Button>
+         <button className='send_btn'>  <img className='send_img' src={send_img} alt="Your Image" /></button>
       </div>
     )
   }

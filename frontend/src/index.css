@@ -15,8 +15,7 @@
   background-color: #ef0f33; 
   color: #fff; 
   border-radius: 20px;
-  padding: 10px 20px; 
-  font-size: 20px; 
+  padding: 10px 20px;
   transition: background-color 1s;
 }
 
@@ -24,11 +23,11 @@
   background-color: #a00a24 !important;
 }
 .header img {
-  width: 200px;
-  height: 70px;
+  width: 140px;
+  height: 50px;
   float: left;
-  left: 50%;
-  vertical-align: middle; 
+  padding: 10px 20px;
+  margin-top: -25px;
 }
 
 
@@ -43,9 +42,25 @@
 
 }
 
-.input Button {
+.send_btn {
+   width: 32px;
+   height:32px;
   left: 512px;
-  bottom: 32px;
+  bottom: 28px;
   border: 1px solid black;
+  border-radius:5px;
+   position: absolute;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+
 }
 
+.send_btn:hover{
+    scale:1.1;
+}
+
+.send_img{
+    height:24px;
+    weight:24px;
+}

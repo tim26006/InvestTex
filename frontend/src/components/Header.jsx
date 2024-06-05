@@ -11,9 +11,9 @@ function Header() {
   
     return (
       <div className='header'>
+            <img  src={logo} alt="Your Image" />
+          <Button type="primary">Авторизация</Button>
          <Button type="primary">Регистрация</Button>
-         <Button type="primary">Авторизация</Button>
-         <img src={logo} alt="Your Image" />
       </div>
     )
   }
