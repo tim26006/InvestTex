@@ -22,6 +22,8 @@
 .header Button:hover {
   background-color: #a00a24 !important;
 }
+
+
 .header img {
   width: 140px;
   height: 50px;
@@ -43,16 +45,16 @@
 }
 
 .send_btn {
-   width: 32px;
-   height:32px;
+  width: 32px;
+  height:32px;
   left: 512px;
   bottom: 28px;
   border: 1px solid black;
   border-radius:5px;
-   position: absolute;
-   display: flex;
-   justify-content: center;
-   align-items: center;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
 }
 
@@ -63,4 +65,30 @@
 .send_img{
     height:24px;
     weight:24px;
+}
+
+
+.pool_info Input {
+  border-radius: 10px;
+  margin-bottom: 15px;
+  font-size: 1.1rem;
+}
+
+.pool_info Button {
+  font-family: Bebas Neue, sans-serif;
+  font-size: 1.1rem;
+  margin-right: 10px;
+  background-color: #ef0f33; 
+  color: #fff; 
+  border-radius: 20px;
+  padding: 10px 20px;
+  transition: background-color 1s;
+  width: 400px;
+  height: 40px;
+  margin-top: 20px;
+}
+
+
+.pool_info Button:hover {
+  background-color: #a00a24 !important;
 }
