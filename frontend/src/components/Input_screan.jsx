@@ -10,7 +10,6 @@ function Input_screan() {
     return (
       <div className='input'>
          <Input placeholder="Опишите, что вам нужно...." style={{
-        border: '2px solid #333', 
         fontWeight: 'bold'
         }} />
          <Button>Отправить</Button>

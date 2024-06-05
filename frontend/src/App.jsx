@@ -1,16 +1,17 @@
-import { useState } from 'react'
-import Header from './components/Header';
-import Input_screan from './components/Input_screan'
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './Home'; 
+import Login from './Login'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <div>
-      <Header />
-      <Input_screan />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
+    </Router>
   );
 }
 
-export default App
+export default App;
