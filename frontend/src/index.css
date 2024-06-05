@@ -12,12 +12,17 @@
 
 .header Button {
   margin-right: 10px;
-  border: 2px solid red;
-  border-radius: 20px; 
-  box-shadow: 2px 2px 6px red;
+  background-color: #ef0f33; 
+  color: #fff; 
+  border-radius: 20px;
+  padding: 10px 20px; 
+  font-size: 20px; 
+  transition: background-color 1s;
 }
 
-
+.header Button:hover {
+  background-color: #a00a24 !important;
+}
 .header img {
   width: 200px;
   height: 70px;
@@ -43,8 +48,4 @@
   bottom: 32px;
   border: 2px solid black;
   box-shadow: 2px 2px 1px black;
-}
-
-.input input {
-  box-shadow: 2px 2px 6px black;
 }
