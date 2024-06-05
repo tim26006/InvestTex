@@ -1,16 +1,16 @@
 import { useState } from 'react'
-import Promt from './components/Promt'
 import Header from './components/Header';
+import Input_screan from './components/Input_screan'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <div>
-    <Header />
-    <Promt />
-  </div>
-  )
+      <Header />
+      <Input_screan />
+    </div>
+  );
 }
 
 export default App

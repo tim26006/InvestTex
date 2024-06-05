@@ -1,5 +1,7 @@
 import { useState } from 'react'
-import logo from './img/logo.jpg';
+import { Button } from 'antd';
+import logo from './img/image_1.png';
+
 
 
 
@@ -8,9 +10,11 @@ function Header() {
     const [count, setCount] = useState(0)
   
     return (
-        <div className="logo_promt">
-          <img src={logo} alt="Your Image"/>
-        </div>
+      <div className='header'>
+         <Button>Регистрация</Button>
+         <Button>Авторизация</Button>
+         <img src={logo} alt="Your Image" />
+      </div>
     )
   }
   
