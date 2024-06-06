@@ -3,12 +3,7 @@
 @tailwind utilities;
 
 
-body {
-    background-image: url(https://images.wallpaperscraft.ru/image/single/moskva_goroda_pejzazhi_58946_3840x2160.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
 
-}
 
 
 .header {
