@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Input, Card } from "antd";
 import send_img from './img/send.png';
+import axios from 'axios'
 
 function Input_screan() {
     const [inputValue, setInputValue] = useState('');
@@ -15,6 +16,12 @@ function Input_screan() {
         const newMessage = { text: inputValue, id: Date.now() };
         setMessages([...messages, newMessage]);
         // Очищаем поле ввода после отправки
+
+        // Отправляем сообщение на бэкенд
+        axios.post('/api/messages', newMessage)
+        .then(response => console.log(response.data))
+        .catch(error => console.error(error));
+
         setInputValue('');
     };
 
