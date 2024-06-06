@@ -12,18 +12,19 @@ function Input_screan() {
     };
 
     const handleClick = () => {
-        // Добавляем новое сообщение к списку сообщений
-        const newMessage = { text: inputValue, id: Date.now() };
-        setMessages([...messages, newMessage]);
-        // Очищаем поле ввода после отправки
+    const newMessage = { text: inputValue, id: Date.now() };
+    setMessages([...messages, newMessage]);
 
-        // Отправляем сообщение на бэкенд
-        axios.post('/api/messages', newMessage)
-        .then(response => console.log(response.data))
-        .catch(error => console.error(error));
+    axios.post('http://127.0.0.1:8000/api/messages', newMessage, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => console.log(response.data))
+    .catch(error => console.error(error));
 
-        setInputValue('');
-    };
+    setInputValue('');
+};
 
     return (
         <div className='input'>
@@ -36,7 +37,7 @@ function Input_screan() {
             </div>
             <div className="input-wrapper">
                 <Input
-                    placeholder="Опишите, что вам необходимо...."
+                    placeholder="Например: Я хочу инвестировать в автосервис...."
                     style={{ fontWeight: 'bold' }}
                     value={inputValue}
                     onChange={handleChange}

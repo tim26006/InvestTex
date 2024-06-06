@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from 'react'
 import { Button } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
@@ -6,9 +6,9 @@ function Header() {
     const [count, setCount] = useState(0);
     const navigate = useNavigate();
 
-    
+
     const handleClickRegistration = () => {
-        navigate('/login');
+        navigate('/reg');
         console.log("Переход на страницу регистарции");
     };
 
