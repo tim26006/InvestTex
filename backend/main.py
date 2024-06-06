@@ -29,4 +29,4 @@ class Message(BaseModel):
 @app.post("/api/messages")
 def read_root(message:Message):
     print(message.text)
-    return {"Hello": "Привет!"}
+    return {"Hello": "Сообщение с бекенда!"}

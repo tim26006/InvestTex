@@ -20,8 +20,14 @@ function Input_screan() {
             'Content-Type': 'application/json'
         }
     })
-    .then(response => console.log(response.data))
-    .catch(error => console.error(error));
+    .then(response => {
+      console.log(response.data);
+      alert(response.data["Hello"]); // или используйте какой-то другой способ вывода
+    })
+    .catch(error => {
+      console.error(error);
+    });
+    
 
     setInputValue('');
 };
