@@ -2,11 +2,15 @@ import React from 'react';
 import { Card, Space, Input, Button } from 'antd';
 
 
+const handleClick = () => {
+  alert("Эта кнопка пока не работает!");
+};
 
 const Login = () => (
 
 
 <Space direction="vertical" size={16}>
+
 
     <Card
       title={
@@ -35,7 +39,7 @@ const Login = () => (
       <Input placeholder="Должность" />
 
       
-      <Button type="primary">Подтвердить</Button>
+      <Button type="primary"onClick={handleClick}>Подтвердить</Button>
       </div>
     </Card>
   </Space>
