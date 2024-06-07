@@ -10,6 +10,8 @@ app = FastAPI()
 origins = [
     "http://127.0.0.1:5173",
     "http://localhost:5173",
+    "http://localhost:5175"
+
 ]
 
 app.add_middleware(
@@ -29,4 +31,4 @@ class Message(BaseModel):
 @app.post("/api/messages")
 def read_root(message:Message):
     print(message.text)
-    return {"Hello": "Сообщение с бекенда!"}
+    return {"Hello": "Вас понял. Давайте уточним запрос?"}
