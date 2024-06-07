@@ -1,45 +1,51 @@
 import React, { useState } from 'react';
 import { Input, Card } from "antd";
 import send_img from './img/send.png';
-import axios from 'axios'
+import axios from 'axios';
 
 function Input_screan() {
     const [inputValue, setInputValue] = useState('');
     const [messages, setMessages] = useState([]);
 
     const handleChange = (e) => {
-        setInputValue(e.target.value);
+        setInputValue(e.target.value); // хук на ввод сообщения
     };
 
-    const handleClick = () => {
-    const newMessage = { text: inputValue, id: Date.now() };
-    setMessages([...messages, newMessage]);
+    const handleClick = () => { // хук на нажатие кнопки
+        const newMessage = { text: inputValue }; // убираем генерацию уникального ключа
+        setMessages([...messages, newMessage]); 
 
-    axios.post('http://127.0.0.1:8000/api/messages', newMessage, {
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
-    .then(response => {
-      console.log(response.data);
-      alert(response.data["Hello"]); // или используйте какой-то другой способ вывода
-    })
-    .catch(error => {
-      console.error(error);
-    });
-    
+        //Отправка запроса в бек (сообщение)
+        axios.post('http://127.0.0.1:8000/api/messages', newMessage, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => {
+            console.log(response.data);
+            // Отобразить сообщение из ответа в чате
+            const receivedMessage = { text: response.data["Hello"] };
+            setMessages(prevMessages => [...prevMessages, receivedMessage]);
+        })
+        .catch(error => {
+            console.error(error);
+        });
 
-    setInputValue('');
-};
+        setInputValue('');
+    };
 
     return (
         <div className='input'>
             <div className="messages">
-                {messages.map(message => (
-                    <Card key={message.id} style={{ marginBottom: 10 }}>
-                        <p>{message.text}</p>
-                    </Card>
-                ))}
+                {messages.length === 0 ? (
+                    <div className="welcome-message">Добро пожаловать! Начните чат, введя сообщение ниже.</div>
+                ) : (
+                    messages.map((message, index) => ( // используем индекс массива как ключ
+                        <Card key={index} style={{ marginBottom: 10 }}>
+                            <p>{message.text}</p>
+                        </Card>
+                    ))
+                )}
             </div>
             <div className="input-wrapper">
                 <Input
