@@ -3,12 +3,13 @@
 @tailwind utilities;
 
 
-body {
+/* body {
   background-image: url(https://kartinki.pics/uploads/posts/2022-12/thumbs/1669954434_5-kartinkin-net-p-belii-fon-dlya-saita-krasivo-5.jpg);
   background-repeat: no-repeat;
   background-size: cover;
 
 }
+*/
 
 
 .header {
@@ -41,9 +42,10 @@ body {
 
 
 .input {
-  position: fixed; /* Изменено на фиксированное позиционирование */
+
+  position: fixed; 
   left: 50%;
-  top: 80%;
+  top: 95%;
   transform: translate(-50%, -50%);
   width: 500px;
   height: 60px;
@@ -51,23 +53,35 @@ body {
 }
 
 .messages {
+  font-family: 'Roboto', sans-serif; 
   position: fixed;
   left: 50%;
-  bottom: 150%; /* Расположим контейнер сообщений над инпутом */
+  bottom: 150%; 
   transform: translateX(-50%);
   width: 500px;
-  max-height: 500px; /* Ограничим максимальную высоту контейнера сообщений */
-  overflow-y: auto; /* Добавим вертикальный скролл, если сообщений много */
-  background-color: white; /* Добавьте фон для видимости сообщений */
-  padding: 10px;
+  max-height: 1000%; 
+  overflow-y: auto; 
+  background-color: #f0f0f0; 
+  padding: 20px; 
   border-radius: 20px;
+  border: 2px solid #333; 
+  color: #333; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  margin: 20px 0; 
+}
 
+.input .messages::-webkit-scrollbar {
+  display: none; 
 }
 
 .messages p {
-  word-wrap: break-word; /* Перенос длинных слов на новую строку */
-  word-break: break-word; /* Перенос длинных слов на новую строку */
-  margin: 0; /* Убираем отступы у параграфа */
+  word-wrap: break-word; 
+  word-break: break-word; 
+  margin: 0; 
+}
+
+.ant-card {
+  border-radius: 40px; 
 }
 
 .welcome-message {
@@ -79,7 +93,9 @@ body {
 }
 
 .input-wrapper{
-
+  position: fixed;
+  width: 500px;
+  height: 60px;
 }
 
 .send_btn {
@@ -130,5 +146,3 @@ body {
 .pool_info Button:hover {
   background-color: #a00a24 !important;
 }
-
-

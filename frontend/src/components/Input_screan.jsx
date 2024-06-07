@@ -12,7 +12,7 @@ function Input_screan() {
     };
 
     const handleClick = () => { // хук на нажатие кнопки
-        const newMessage = { text: inputValue }; // убираем генерацию уникального ключа
+        const newMessage = { text: inputValue, source: "Пользователь" }; // устанавливаем source как 
         setMessages([...messages, newMessage]); 
 
         //Отправка запроса в бек (сообщение)
@@ -24,7 +24,7 @@ function Input_screan() {
         .then(response => {
             console.log(response.data);
             // Отобразить сообщение из ответа в чате
-            const receivedMessage = { text: response.data["Hello"] };
+            const receivedMessage = { text: response.data["Hello"], source: "Бот"}; // устанавливаем source как "bot"
             setMessages(prevMessages => [...prevMessages, receivedMessage]);
         })
         .catch(error => {
@@ -40,13 +40,17 @@ function Input_screan() {
                 {messages.length === 0 ? (
                     <div className="welcome-message">Добро пожаловать! Начните чат, введя сообщение ниже.</div>
                 ) : (
-                    messages.map((message, index) => ( // используем индекс массива как ключ
+                    messages.map((message, index) => ( 
                         <Card key={index} style={{ marginBottom: 10 }}>
-                            <p>{message.text}</p>
+                            <p className='message-label'>{message.source}</p>
+                            <p style={{ fontSize: 18 }}>
+                                {message.text}
+                            </p>
                         </Card>
                     ))
                 )}
             </div>
+            
             <div className="input-wrapper">
                 <Input
                     placeholder="Например: Я хочу инвестировать в автосервис...."
