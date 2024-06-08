@@ -29,11 +29,9 @@ function InputScreen() {
 
     const handleClick = () => {
         if (!inputValue.trim()) { 
-            setError(true); // Если пустой ввод, установить состояние для отображения ошибки
-            return; // Выйти из функции, не отправляя сообщение
+            setError(true); 
+            return; 
         }
-
-        // Очистить состояние ошибки, если ввод не пустой
         setError(false);
 
         const newMessage = { text: inputValue, source: "Пользователь" };
