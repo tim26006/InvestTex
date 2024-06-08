@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 import logging
+from additional_questions import *
 
 logging.basicConfig(level=logging.INFO)
 app = FastAPI()
@@ -31,4 +32,6 @@ class Message(BaseModel):
 @app.post("/api/messages")
 def read_root(message:Message):
     print(message.text)
-    return {"Hello": "Вас понял. Давайте уточним запрос?"}
+    response_text = "Вас понял. Давайте уточним запрос?"
+    question = additional_questions[0]
+    return {"Hello": response_text, "question": question}

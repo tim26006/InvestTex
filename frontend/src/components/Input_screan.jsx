@@ -45,7 +45,9 @@ function InputScreen() {
         .then(response => {
             console.log(response.data);
             const receivedMessage = { text: response.data["Hello"], source: "Бот"};
+            const question = { text: response.data["question"], source: "Бот"};
             setMessages(prevMessages => [...prevMessages, receivedMessage]);
+            setMessages(prevMessages => [...prevMessages, question]);
         })
         .catch(error => {
             console.error(error);
@@ -70,7 +72,7 @@ function InputScreen() {
                 ) : (
                     messages.map((message, index) => ( 
                         <Card key={index} style={{ marginBottom: 10 }}>
-                            <p className='message-label'>{message.source}</p>
+                            <p className={`message-label ${message.source === "Бот" ? 'bot' : ''}`}>{message.source}</p>
                             <p style={{ fontSize: 18 }}>
                                 {message.text}
                             </p>
