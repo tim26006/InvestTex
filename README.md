@@ -5,3 +5,4 @@
 - Talwind CSS
 - Ant Design 5.0
 - Axios
+- react-modal

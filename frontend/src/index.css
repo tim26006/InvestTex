@@ -2,22 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-
-/* body {
-  background-image: url(https://kartinki.pics/uploads/posts/2022-12/thumbs/1669954434_5-kartinkin-net-p-belii-fon-dlya-saita-krasivo-5.jpg);
-  background-repeat: no-repeat;
-  background-size: cover;
-
-}
-*/
-
-
+/* Стиль для хедера */
 .header {
   margin-top: 50px;
   text-align: right;
   border-radius: 20px;
 }
 
+/* Стиль для кнопок вход авторизация */
 .header Button {
   margin-right: 10px;
   background-color: #ef0f33; 
@@ -32,17 +24,8 @@
 }
 
 
-.header img {
-  width: 140px;
-  height: 50px;
-  float: left;
-  padding: 10px 20px;
-  margin-top: -25px;
-}
-
-
+/* Стиль для инпута */
 .input {
-
   position: fixed; 
   left: 50%;
   top: 95%;
@@ -52,6 +35,14 @@
   border-radius: 20px;
 }
 
+.input-wrapper{
+  position: fixed;
+  width: 500px;
+  height: 60px;
+}
+
+
+/* Стиль для окошка с сообщениями */
 .messages {
   font-family: 'Roboto', sans-serif; 
   position: fixed;
@@ -84,6 +75,7 @@
   border-radius: 40px; 
 }
 
+
 .welcome-message {
   font-family: Arial; 
   font-weight: bold; 
@@ -92,12 +84,7 @@
   padding: 20px; 
 }
 
-.input-wrapper{
-  position: fixed;
-  width: 500px;
-  height: 60px;
-}
-
+/* Стиль для кнопки отправки*/
 .send_btn {
   width: 32px;
   height:32px;
@@ -121,7 +108,7 @@
     weight:24px;
 }
 
-
+/* Стиль для поля ввода при регистарции*/
 .pool_info Input {
   border-radius: 10px;
   margin-bottom: 15px;
@@ -145,4 +132,55 @@
 
 .pool_info Button:hover {
   background-color: #a00a24 !important;
+}
+
+
+/* Стиль для кнопки частых вопросов*/
+.faq_img {
+  height: 24px;
+  weight: 24px;
+}
+
+.help_button {
+  width: 32px;
+  height:32px;
+  left: 550px;
+  bottom: 28px;
+  border: 1px solid black;
+  border-radius:5px;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.help_button:hover{
+  scale:1.1;
+}
+
+
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 20px;
+  width: 300px; /* Фиксированная ширина модального окна */
+  max-width: 80%; /* Максимальная ширина 80% ширины экрана */
+  max-height: 80vh; /* Максимальная высота 80% высоты окна просмотра */
+  overflow: auto; /* Добавляет прокрутку, если содержимое не помещается */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }

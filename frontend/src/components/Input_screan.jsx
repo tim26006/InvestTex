@@ -1,21 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Input, Card } from "antd";
 import send_img from './img/send.png';
 import axios from 'axios';
+import faq_img from './img/faq.png';
+import Modal from 'react-modal';
 
-function Input_screan() {
+function InputScreen() {
     const [inputValue, setInputValue] = useState('');
     const [messages, setMessages] = useState([]);
+    const [modalIsOpen, setModalIsOpen] = useState(false);
 
-    const handleChange = (e) => {
-        setInputValue(e.target.value); // хук на ввод сообщения
+    useEffect(() => {
+        Modal.setAppElement('#root'); // Установка корневого элемента вашего приложения
+    }, []);
+
+    const openModal = () => {
+        setModalIsOpen(true);
     };
 
-    const handleClick = () => { // хук на нажатие кнопки
-        const newMessage = { text: inputValue, source: "Пользователь" }; // устанавливаем source как 
+    const closeModal = () => {
+        setModalIsOpen(false);
+    };
+
+    const handleChange = (e) => {
+        setInputValue(e.target.value);
+    };
+
+    const handleClick = () => {
+        const newMessage = { text: inputValue, source: "Пользователь" };
         setMessages([...messages, newMessage]); 
 
-        //Отправка запроса в бек (сообщение)
         axios.post('http://127.0.0.1:8000/api/messages', newMessage, {
             headers: {
                 'Content-Type': 'application/json'
@@ -23,8 +37,7 @@ function Input_screan() {
         })
         .then(response => {
             console.log(response.data);
-            // Отобразить сообщение из ответа в чате
-            const receivedMessage = { text: response.data["Hello"], source: "Бот"}; // устанавливаем source как "bot"
+            const receivedMessage = { text: response.data["Hello"], source: "Бот"};
             setMessages(prevMessages => [...prevMessages, receivedMessage]);
         })
         .catch(error => {
@@ -33,6 +46,14 @@ function Input_screan() {
 
         setInputValue('');
     };
+
+    const modalContent = (
+        <>
+          <h2>Заголовок модального окна</h2>
+          <p>Текст модального окна</p>
+          <button onClick={closeModal}>Закрыть</button>
+        </>
+      );
 
     return (
         <div className='input'>
@@ -61,9 +82,15 @@ function Input_screan() {
                 <button className='send_btn' onClick={handleClick}>
                     <img className='send_img' src={send_img} alt="Send" />
                 </button>
+                <button className='help_button' onClick={openModal}>
+                    <img className="faq_img" src={faq_img} alt="Send" />
+                </button>
             </div>
+            <Modal isOpen={modalIsOpen} onRequestClose={closeModal} className="modal">
+                    {modalContent}
+            </Modal>
         </div>
     );
 }
 
-export default Input_screan;
+export default InputScreen;
