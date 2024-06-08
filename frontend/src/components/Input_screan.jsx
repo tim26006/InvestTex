@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Input, Card, Space, Alert } from "antd";
-import send_img from './img/send.png';
 import axios from 'axios';
-import faq_img from './img/faq.png';
 import Modal from 'react-modal';
+import { IoMdHelp } from "react-icons/io";
+import { FiSend } from "react-icons/fi";
 
 function InputScreen() {
     const [inputValue, setInputValue] = useState('');
@@ -89,10 +89,10 @@ function InputScreen() {
                     onChange={handleChange}
                 />
                 <button className='send_btn' onClick={handleClick}>
-                    <img className='send_img' src={send_img} alt="Send" />
+                        <FiSend size={20} />
                 </button>
                 <button className='help_button' onClick={openModal}>
-                    <img className="faq_img" src={faq_img} alt="FAQ" />
+                        <IoMdHelp size={24} />
                 </button>
             </div>
             <Modal isOpen={modalIsOpen} onRequestClose={closeModal} className="modal">
@@ -103,7 +103,7 @@ function InputScreen() {
             {error && (
                 <div className="centered-error">
         <Space direction="vertical" style={{ width: '100%' }}>
-            <Alert  style={{ fontSize: 16 }} message="Введите сообщение" type="error" closable />
+            <Alert  style={{ fontSize: 16 }} message="Введите сообщение" type="error" closable/>
         </Space>
                 </div>
         )}
