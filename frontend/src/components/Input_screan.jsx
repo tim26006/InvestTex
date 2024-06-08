@@ -27,8 +27,12 @@ function InputScreen() {
     };
 
     const handleClick = () => {
+        if (!inputValue.trim()) {  // Check if inputValue is empty or contains only whitespace
+            return alert("Введите сообщение"); 
+        }
+
         const newMessage = { text: inputValue, source: "Пользователь" };
-        setMessages([...messages, newMessage]); 
+        setMessages([...messages, newMessage]);
 
         axios.post('http://127.0.0.1:8000/api/messages', newMessage, {
             headers: {
@@ -49,8 +53,8 @@ function InputScreen() {
 
     const modalContent = (
         <>
-          <h2>Заголовок модального окна</h2>
-          <p>Текст модального окна</p>
+          <h2>Обучение</h2>
+          <p>Просто введи текст</p>
           <button onClick={closeModal}>Закрыть</button>
         </>
       );
@@ -83,11 +87,11 @@ function InputScreen() {
                     <img className='send_img' src={send_img} alt="Send" />
                 </button>
                 <button className='help_button' onClick={openModal}>
-                    <img className="faq_img" src={faq_img} alt="Send" />
+                    <img className="faq_img" src={faq_img} alt="FAQ" />
                 </button>
             </div>
             <Modal isOpen={modalIsOpen} onRequestClose={closeModal} className="modal">
-                    {modalContent}
+                {modalContent}
             </Modal>
         </div>
     );
