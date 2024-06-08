@@ -36,6 +36,9 @@ function InputScreen() {
 
         const newMessage = { text: inputValue, source: "Пользователь" };
         setMessages([...messages, newMessage]);
+         const delay = { text: "Вас понял! Ищу площадку......", source: "Бот"};
+          setMessages(prevMessages => [...prevMessages, delay]);
+
 
         axios.post('http://127.0.0.1:8000/api/messages', newMessage, {
             headers: {
@@ -44,10 +47,9 @@ function InputScreen() {
         })
         .then(response => {
             console.log(response.data);
-            const receivedMessage = { text: response.data["Hello"], source: "Бот"};
-            const question = { text: response.data["question"], source: "Бот"};
-            setMessages(prevMessages => [...prevMessages, receivedMessage]);
-            setMessages(prevMessages => [...prevMessages, question]);
+            const resp = { text: response.data["response"], source: "Бот"};
+            setMessages(prevMessages => [...prevMessages, resp]);
+
         })
         .catch(error => {
             console.error(error);
