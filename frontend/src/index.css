@@ -54,8 +54,7 @@
   overflow-y: auto; 
   background-color: #f0f0f0; 
   padding: 20px; 
-  border-radius: 20px;
-  border: 1px solid #333;
+  border-radius: 20px;  
   color: #333; 
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
   margin: 20px 0; 
@@ -90,7 +89,7 @@
   height:32px;
   left: 512px;
   bottom: 28px;
-  border: 1px solid black;
+  border: 1px solid #3390ec;
   border-radius:5px;
   position: absolute;
   display: flex;
@@ -100,7 +99,7 @@
 }
 
 .send_btn:hover{
-    scale:1.1;
+    scale:1.2;
 }
 
 .send_img{
@@ -146,7 +145,7 @@
   height:32px;
   left: 550px;
   bottom: 28px;
-  border: 1px solid black;
+  border: 1px solid #3390ec;
   border-radius:5px;
   position: absolute;
   display: flex;
@@ -155,7 +154,7 @@
 }
 
 .help_button:hover{
-  scale:1.1;
+  scale:1.2;
 }
 
 
@@ -169,7 +168,7 @@
   border: 1px solid #ccc;
   border-radius: 10px;
   padding: 20px;
-  width: 300px; /* Фиксированная ширина модального окна */
+  width: 400px; /* Фиксированная ширина модального окна */
   max-width: 80%; /* Максимальная ширина 80% ширины экрана */
   max-height: 80vh; /* Максимальная высота 80% высоты окна просмотра */
   overflow: auto; /* Добавляет прокрутку, если содержимое не помещается */
@@ -189,7 +188,7 @@
 .centered-error {
   position: fixed; 
   left: 50%;
-  bottom: 300%;
+  bottom: 10%;
   transform: translate(-50%, -50%);
   width: 200px;
   height: 60px;
@@ -204,4 +203,25 @@
 
 .message-label.bot {
     color: #ce091d;
+}
+
+
+.modal-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+}
+
+.modal-item {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.modal-text {
+  font-size: 1.2rem;
+  font-weight: normal;
+  color: #666;
+
+  margin-bottom: 1rem;
 }

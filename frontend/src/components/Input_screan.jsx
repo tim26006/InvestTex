@@ -58,9 +58,19 @@ function InputScreen() {
 
     const modalContent = (
         <>
-          <h2>Заголовок модального окна</h2>
-          <p>Текст модального окна</p>
-          <button onClick={closeModal}>Закрыть</button>
+          <h2 className="modal-title">Как написать классный промт?</h2>
+          <ul className="modal-list">
+            <li className="modal-item">Опишите контекст задачи</li>
+            <li className="modal-item">Задайте вопрос или опишите задачу</li>
+            <li className="modal-item">Будьте конкретными</li>
+          </ul>
+          <p className="modal-title">Пример промпта:</p>
+          <p className="modal-text">
+            Разработайте комплексную стратегию инвестиций в недвижимое имущество, фокусируясь на преимуществах и рисках инвестирования 
+            в жилые и коммерческие объекты. Внимательно изучите факторы, такие как рыночные тренды, управление имуществом и налоговые последствия. 
+            Дайте детальное анализа потенциальных доходов от инвестиций и оптимального распределения 
+            средств между различными классами активов.
+          </p>
         </>
       );
 
@@ -89,10 +99,10 @@ function InputScreen() {
                     onChange={handleChange}
                 />
                 <button className='send_btn' onClick={handleClick}>
-                        <FiSend size={20} />
+                        <FiSend size={20} color="#3390ec" />
                 </button>
                 <button className='help_button' onClick={openModal}>
-                        <IoMdHelp size={24} />
+                        <IoMdHelp size={24} color="#3390ec"/>
                 </button>
             </div>
             <Modal isOpen={modalIsOpen} onRequestClose={closeModal} className="modal">
