@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Input, Card } from "antd";
+import { Input, Card, Space, Alert } from "antd";
 import send_img from './img/send.png';
 import axios from 'axios';
 import faq_img from './img/faq.png';
@@ -9,6 +9,7 @@ function InputScreen() {
     const [inputValue, setInputValue] = useState('');
     const [messages, setMessages] = useState([]);
     const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [error, setError] = useState(false); // Состояние для отображения ошибки
 
     useEffect(() => {
         Modal.setAppElement('#root'); // Установка корневого элемента вашего приложения
@@ -27,9 +28,13 @@ function InputScreen() {
     };
 
     const handleClick = () => {
-        if (!inputValue.trim()) {  // Check if inputValue is empty or contains only whitespace
-            return alert("Введите сообщение"); 
+        if (!inputValue.trim()) { 
+            setError(true); // Если пустой ввод, установить состояние для отображения ошибки
+            return; // Выйти из функции, не отправляя сообщение
         }
+
+        // Очистить состояние ошибки, если ввод не пустой
+        setError(false);
 
         const newMessage = { text: inputValue, source: "Пользователь" };
         setMessages([...messages, newMessage]);
@@ -53,8 +58,8 @@ function InputScreen() {
 
     const modalContent = (
         <>
-          <h2>Обучение</h2>
-          <p>Просто введи текст</p>
+          <h2>Заголовок модального окна</h2>
+          <p>Текст модального окна</p>
           <button onClick={closeModal}>Закрыть</button>
         </>
       );
@@ -93,6 +98,16 @@ function InputScreen() {
             <Modal isOpen={modalIsOpen} onRequestClose={closeModal} className="modal">
                 {modalContent}
             </Modal>
+
+            {/* Отображение сообщения об ошибке, если есть */}
+            {error && (
+                <div className="centered-error">
+        <Space direction="vertical" style={{ width: '100%' }}>
+            <Alert  style={{ fontSize: 16 }} message="Введите сообщение" type="error" closable />
+        </Space>
+                </div>
+        )}
+
         </div>
     );
 }

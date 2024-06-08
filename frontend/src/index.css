@@ -184,3 +184,15 @@
   width: 100%;
   height: 100%;
 }
+
+
+.centered-error {
+  position: fixed; 
+  left: 50%;
+  bottom: 300%;
+  transform: translate(-50%, -50%);
+  width: 200px;
+  height: 60px;
+  border-radius: 30px;
+  text-align: center;
+}
