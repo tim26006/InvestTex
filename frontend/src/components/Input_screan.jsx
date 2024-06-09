@@ -1,5 +1,4 @@
-// InputScreen.js
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Input, Card, Space, Alert } from "antd";
 import axios from 'axios';
 import Modal from 'react-modal';
@@ -13,6 +12,7 @@ function InputScreen() {
     const [isHelpModalOpen, setIsHelpModalOpen] = useState(false);
     const [isMapModalOpen, setIsMapModalOpen] = useState(false);
     const [error, setError] = useState(false);
+    const [mapData, setMapData] = useState(null);
 
     useEffect(() => {
         Modal.setAppElement('#root');
@@ -47,7 +47,7 @@ function InputScreen() {
 
         const newMessage = { text: inputValue, source: "Пользователь" };
         setMessages([...messages, newMessage]);
-        const delayMessage = { text: "Вас понял! Ищу площадку......", source: "Бот" };
+        const delayMessage = { text: "Вас понял! Ищу площадки......", source: "Бот" };
         setMessages(prevMessages => [...prevMessages, delayMessage]);
 
         axios.post('http://127.0.0.1:8000/api/messages', newMessage, {
@@ -56,7 +56,16 @@ function InputScreen() {
             }
         })
         .then(response => {
-            const botMessage = { text: response.data.response, source: "Бот" };
+            // Парсинг JSON-ответа
+            const data = JSON.parse(response.data.response);
+
+            // Сохранение данных для карты
+            setMapData(data);
+
+            // Создание сообщения с использованием значения "Название площадки"
+            const botMessage = { text: data["Название площадки"], source: "Бот" };
+
+            // Добавление нового сообщения в массив сообщений
             setMessages(prevMessages => [...prevMessages, botMessage]);
         })
         .catch(error => {
@@ -88,7 +97,7 @@ function InputScreen() {
 
             <div className="input-wrapper">
                 <Input
-                    placeholder="Например: Я хочу инвестировать в автосервис...."
+                    placeholder="Что Вас интересует?"
                     style={{ fontWeight: 'bold' }}
                     value={inputValue}
                     onChange={handleChange}
@@ -110,14 +119,14 @@ function InputScreen() {
                 </ul>
                 <p className="modal-title">Пример промпта:</p>
                 <p className="modal-text">
-                    Разработайте комплексную стратегию инвестиций в недвижимое имущество, фокусируясь на преимуществах и рисках инвестирования 
-                    в жилые и коммерческие объекты. Внимательно изучите факторы, такие как рыночные тренды, управление имуществом и налоговые последствия. 
-                    Дайте детальное анализа потенциальных доходов от инвестиций и оптимального распределения 
+                    Разработайте комплексную стратегию инвестиций в недвижимое имущество, фокусируясь на преимуществах и рисках инвестирования
+                    в жилые и коммерческие объекты. Внимательно изучите факторы, такие как рыночные тренды, управление имуществом и налоговые последствия.
+                    Дайте детальное анализа потенциальных доходов от инвестиций и оптимального распределения
                     средств между различными классами активов.
                 </p>
             </Modal>
 
-            <MapModal isOpen={isMapModalOpen} onRequestClose={closeMapModal} />
+            <MapModal isOpen={isMapModalOpen} onRequestClose={closeMapModal} mapData={mapData} />
 
             {error && (
                 <div className="centered-error">
