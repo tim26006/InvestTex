@@ -5,6 +5,8 @@ import logging
 from additional_questions import *
 from AI import AI_ASSISTANT
 from pydantic import BaseModel, EmailStr, Field
+from  find_places import  find_places_features
+import json
 
 
 logging.basicConfig(level=logging.INFO)
@@ -36,9 +38,11 @@ class Message(BaseModel):
 
 @app.post("/api/messages")
 def read_root(message:Message):
-    print(message.text)
-    response  = assistant.get_answer(str(message.text))
-    return {"response": response}
+    response = assistant.get_answer(str(message.text))
+    print(response)
+    features = find_places_features(response)
+    print (features)
+    return {"response":features}
 
 
 class UserRegistration(BaseModel):
