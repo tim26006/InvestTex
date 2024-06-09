@@ -4,16 +4,49 @@ import { YMaps, Map, Placemark } from '@pbe/react-yandex-maps';
 import { Pagination } from "antd";
 
 const MapModal = ({ isOpen, onRequestClose, mapData }) => {
-    // Проверка наличия данных
-    //const center = mapData ? [mapData.latitude, mapData.longitude] : [55.75, 37.57];
+    const coordinates = mapData ? mapData["Координаты (точка)"] : "Коррдинаты"; // Declare coordinates with const or let
+    let arr_coordinates = coordinates.split(',');
+
+    const type = mapData ? mapData["Формат площадки"] : "Формат";
+    const typeMarket = mapData ? mapData["Форма сделки"] : "Форма";
     const placeName = mapData ? mapData["Название площадки"] : "Название";
-    //const description = mapData ? mapData["Характеристики"] : "Характеристики";
+    const adress = mapData ? mapData["Адрес объекта"] : "Адрес";
+    const bid = mapData ? mapData["Ссылка на форму подачи заявки"] : "URL";
+    let S = "Площадь"; // сделать для помещения
+    let cadastrNumber = "Номер"; // сделать для помещения
+    let data = "Дата";
+    let price = "Цена"; 
+
+    if (typeMarket === 'Продажа через аукцион'){
+        price = mapData ? mapData["Порядок определения стоимости"] : "Цена";
+    }
+    if (typeMarket === 'Аренда'){
+        price = mapData ? mapData["Стоимость объекта, руб. (покупки или месячной аренды)"] : "Цена";
+        data = mapData ? mapData["Описание процедуры подачи заявки"] : "Дата";
+    }
+    if (typeMarket === 'Аренда через аукцион'){
+        price = mapData ? mapData["Порядок определения стоимости"] : "Цена";
+    }
+    if (type === "Земельный участок"){
+        cadastrNumber = mapData ? mapData["Кадастровый номер ЗУ"] : "Номер";
+        S = mapData ? mapData["Свободная площадь ЗУ, га"] : "Площадь";
+    }
+
 
     return (
         <Modal isOpen={isOpen} onRequestClose={onRequestClose} className="modalMap">
             <h1 className='title_map'>{placeName}</h1>
             <div className="description-block">
-                <p className="descriptionMap">Описание</p>
+                <p className="descriptionMap">
+                    <li>Адрес: {adress} </li>
+                    <li>Тип: {type}  </li>
+                    <li>Форма сделки: {typeMarket} </li>
+                    <li>Цена: {price} </li>
+                    <li>{data}</li>
+                    <li>Ссылка на форму подачи {bid}</li>
+                    <li>Кадастровый номер: {cadastrNumber}</li>
+                    <li>Площадь:{S}</li>
+                </p>
             </div>
             <YMaps>
                 <Map
@@ -26,7 +59,7 @@ const MapModal = ({ isOpen, onRequestClose, mapData }) => {
                 >
                     {mapData && (
                         <Placemark
-                            geometry={[55.748072, 37.714132]}
+                            geometry={arr_coordinates.reverse()}
                             properties={{
                                 balloonContent: "",
                             }}

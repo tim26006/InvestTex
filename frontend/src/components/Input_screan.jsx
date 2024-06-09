@@ -64,7 +64,7 @@ function InputScreen() {
 
             // Создание сообщения с использованием значения "Название площадки"
             const botMessage = { text: data["Название площадки"], source: "Бот" };
-
+            
             // Добавление нового сообщения в массив сообщений
             setMessages(prevMessages => [...prevMessages, botMessage]);
         })
