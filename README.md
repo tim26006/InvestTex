@@ -10,5 +10,5 @@
 - Axios
 - React Modal
 - React Icons
-- Yandex SmartCaptcha
+- reCAPTCHA
 - React Yandex Maps

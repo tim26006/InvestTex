@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Card, Space, Input, Button } from 'antd';
-import axios from 'axios'; // добавляем библиотеку axios для выполнения HTTP-запросов
+import axios from 'axios';
+import ReCAPTCHA from "react-google-recaptcha";
+
 
 const Login = () => {
   const [fio, setFio] = useState('');
@@ -13,41 +15,42 @@ const Login = () => {
   const [city, setCity] = useState('');
   const [position, setPosition] = useState('');
   const [password, setPassword] = useState('');
+  const [isCaptchaSuccessful, setIsCaptchaSuccess] = React.useState(false)
+
+  function onChange(value) {
+    setIsCaptchaSuccess(true)
+    console.log("captcha value: ", value);
+  }
 
   const handleClick = () => {
     const data = {
-      fio: fio,
-      email: email,
-      organization: organization,
-      inn: inn,
-      website: website,
-      industry: industry,
-      country: country,
-      city: city,
-      position: position,
-      password: password
+      fio,
+      email,
+      organization,
+      inn,
+      website,
+      industry,
+      country,
+      city,
+      position,
+      password,
     };
 
-    
     axios.post('http://localhost:8000/api/register', data)
       .then(response => {
         console.log(response.data);
-        alert("успешно")
+        alert("успешно");
       })
       .catch(error => {
         console.error('Ошибка при выполнении запроса:', error);
-        alert("не удалось")
+        alert("не удалось");
       });
   };
 
   return (
     <Space direction="vertical" size={16}>
       <Card
-        title={
-          <div style={{ fontSize: '1.7rem' }}>
-            Регистрация
-          </div>
-        }
+        title={<div style={{ fontSize: '1.7rem' }}>Регистрация</div>}
         align="center"
         style={{
           width: 500,
@@ -68,7 +71,11 @@ const Login = () => {
           <Input placeholder="Город" value={city} onChange={e => setCity(e.target.value)} />
           <Input placeholder="Должность" value={position} onChange={e => setPosition(e.target.value)} />
           <Input placeholder="Пароль" value={password} onChange={e => setPassword(e.target.value)} />
-          <Button type="primary" onClick={handleClick}>Подтвердить</Button>
+          <Button type="primary" onClick={handleClick}  disabled={!isCaptchaSuccessful}>Подтвердить</Button>
+          <ReCAPTCHA
+            sitekey={'6LemcvQpAAAAAJQiju9djqLGa8SmBRVEm9Z1X5lL'}
+            onChange={onChange}
+          />
         </div>
       </Card>
     </Space>
