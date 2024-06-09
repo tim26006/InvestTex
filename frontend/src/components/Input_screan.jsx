@@ -4,6 +4,8 @@ import axios from 'axios';
 import Modal from 'react-modal';
 import { IoMdHelp } from "react-icons/io";
 import { FiSend } from "react-icons/fi";
+import { YMaps } from '@pbe/react-yandex-maps';
+
 
 function InputScreen() {
     const [inputValue, setInputValue] = useState('');
@@ -80,7 +82,7 @@ function InputScreen() {
         <div className='input'>
             <div className="messages">
                 {messages.length === 0 ? (
-                    <div className="welcome-message">Добро пожаловать! Начните чат, введя сообщение ниже.</div>
+                    <div className="welcome-message">Здравствуйте! Начните чат, введя сообщение ниже.</div>
                 ) : (
                     messages.map((message, index) => ( 
                         <Card key={index} style={{ marginBottom: 10 }}>
@@ -117,6 +119,7 @@ function InputScreen() {
         <Space direction="vertical" style={{ width: '100%' }}>
             <Alert  style={{ fontSize: 16 }} message="Введите сообщение" type="error" closable/>
         </Space>
+        
                 </div>
         )}
 

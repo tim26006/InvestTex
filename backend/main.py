@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import logging
 from additional_questions import *
 from AI import AI_ASSISTANT
-
+from pydantic import BaseModel, EmailStr, Field
 
 
 logging.basicConfig(level=logging.INFO)
@@ -39,3 +39,23 @@ def read_root(message:Message):
     print(message.text)
     response  = assistant.get_answer(str(message.text))
     return {"response": response}
+
+
+class UserRegistration(BaseModel):
+    fio: str
+    email: str
+    organization: str
+    inn: str
+    website: str
+    industry: str
+    country: str
+    city: str
+    position: str
+    password: str
+
+@app.post("/api/register")
+async def register_user(user: UserRegistration):
+    return {"message": "Пользователь успешно зарегистрирован"}
+
+
+#uvicorn main:app - для запуска
