@@ -3,12 +3,17 @@ import Modal from 'react-modal';
 import { YMaps, Map, Placemark } from '@pbe/react-yandex-maps';
 import { Pagination } from "antd";
 
-const MapModal = ({ isOpen, onRequestClose }) => {
+const MapModal = ({ isOpen, onRequestClose, mapData }) => {
+    // Проверка наличия данных
+    //const center = mapData ? [mapData.latitude, mapData.longitude] : [55.75, 37.57];
+    const placeName = mapData ? mapData["Название площадки"] : "Название";
+    //const description = mapData ? mapData["Характеристики"] : "Характеристики";
+
     return (
         <Modal isOpen={isOpen} onRequestClose={onRequestClose} className="modalMap">
-            <h1 className='title_map'>Название</h1>
+            <h1 className='title_map'>{placeName}</h1>
             <div className="description-block">
-                <p className="descriptionMap">Характеристики</p>
+                <p className="descriptionMap">Описание</p>
             </div>
             <YMaps>
                 <Map
@@ -19,10 +24,15 @@ const MapModal = ({ isOpen, onRequestClose }) => {
                     }}
                     modules={["control.ZoomControl", "control.FullscreenControl"]}
                 >
-                    <Placemark
-                        modules={["geoObject.addon.balloon"]}
-                        defaultGeometry={[55.75, 37.57]}
-                    />
+                    {mapData && (
+                        <Placemark
+                            geometry={[55.748072, 37.714132]}
+                            properties={{
+                                balloonContent: "",
+                            }}
+                            modules={["geoObject.addon.balloon"]}
+                        />
+                    )}
                 </Map>
             </YMaps>
             <div style={{ position: 'relative', overflow: 'hidden' }}>
