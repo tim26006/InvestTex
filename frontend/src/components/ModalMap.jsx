@@ -1,12 +1,21 @@
 import React from 'react';
 import Modal from 'react-modal';
 import { YMaps, Map, Placemark } from '@pbe/react-yandex-maps';
-import { Pagination } from "antd";
+import { Pagination, Button } from "antd";
+import { HiOutlineLocationMarker } from "react-icons/hi";
+import { BiHomeAlt2 } from "react-icons/bi";
+import { FaRubleSign, FaExternalLinkAlt, FaRegHandshake, FaFireAlt } from "react-icons/fa";
+import { IoWaterOutline } from "react-icons/io5";
+import { FcElectricity } from "react-icons/fc";
+
+
+
+
 
 const MapModal = ({ isOpen, onRequestClose, mapData }) => {
-    const coordinates = mapData ? mapData["Координаты (точка)"] : "Коррдинаты"; // Declare coordinates with const or let
+    const coordinates = mapData ? mapData["Координаты (точка)"] : "Коррдинаты";
     let arr_coordinates = coordinates.split(',');
-
+    arr_coordinates.reverse()
     const type = mapData ? mapData["Формат площадки"] : "Формат";
     const typeMarket = mapData ? mapData["Форма сделки"] : "Форма";
     const placeName = mapData ? mapData["Название площадки"] : "Название";
@@ -24,7 +33,6 @@ const MapModal = ({ isOpen, onRequestClose, mapData }) => {
     }
     if (typeMarket === 'Аренда'){
         price = mapData ? mapData["Стоимость объекта, руб. (покупки или месячной аренды)"] : "Цена";
-
     }
     if (typeMarket === 'Аренда через аукцион'){
         price = mapData ? mapData["Порядок определения стоимости"] : "Цена";
@@ -41,27 +49,25 @@ const MapModal = ({ isOpen, onRequestClose, mapData }) => {
         S = mapData ? mapData["Свободная площадь здания, сооружения, помещения, кв. м"] : "Площадь";
         gas = mapData ? mapData["Газоснабжение Наличие (Да/Нет)"] : "Газ";
         water = mapData ? mapData["Водоснабжение Наличие (Да/Нет)"] : "Вода";
-        electricity = mapData ? mapData["Электроснабжение Наличие (Да/Нет)"] : "Электро";
-        
+        electricity = mapData ? mapData["Электроснабжение Наличие (Да/Нет)"] : "Электро";   
     }
-
-
 
     return (
         <Modal isOpen={isOpen} onRequestClose={onRequestClose} className="modalMap">
             <h1 className='title_map'>{placeName}</h1>
-                        <YMaps>
+            <YMaps>
                 <Map
+                    className="custom-map"
                     defaultState={{
-                        center: [55.75, 37.57],
-                        zoom: 8,
+                        center: arr_coordinates, // Устанавливаем центр карты в координаты маркера
+                        zoom: 18, // Устанавливаем желаемый уровень масштабирования
                         controls: ["zoomControl", "fullscreenControl"],
                     }}
                     modules={["control.ZoomControl", "control.FullscreenControl"]}
                 >
                     {mapData && (
                         <Placemark
-                            geometry={arr_coordinates.reverse()}
+                            geometry={arr_coordinates}
                             properties={{
                                 balloonContent: "",
                             }}
@@ -70,21 +76,51 @@ const MapModal = ({ isOpen, onRequestClose, mapData }) => {
                     )}
                 </Map>
             </YMaps>
-                <p className="descriptionMap">
-                    <li>{adress} </li>
-                    <li>{type}  </li>
-                    <li>{typeMarket} </li>
-                    <li>{price} </li>
-                    <li>{bid}</li>
-                    <li>{cadastrNumber}</li>
-                    <li>{S}</li>
-                    <li>{gas}</li>
-                    <li>{water}</li>
-                    <li>{electricity}</li>
-                </p>
-
-                <a href={`https://yandex.ru/maps/?panorama[point]=${arr_coordinates[1]},${arr_coordinates[0]}`} target="_blank" rel="noopener noreferrer">Панорама</a>
-
+            <a href={`https://yandex.ru/maps/?panorama[point]=${arr_coordinates[1]},${arr_coordinates[0]}`} target="_blank" rel="noopener noreferrer">
+                <Button className='button_check_panorama' type="primary">Посмотреть панораму</Button>
+            </a>
+                
+            <p className="descriptionMap" style={{ fontFamily: 'Arial', fontSize: '20px' }}>
+    <li className="vertical-list-item">
+        <HiOutlineLocationMarker size={25} color="#ef0f33" />
+        <div>{adress}</div>
+    </li>
+    <li className="vertical-list-item">
+        <BiHomeAlt2 size={25} />
+        <div>{type}</div>
+    </li>
+    <li className="vertical-list-item">
+        <FaRegHandshake  size={25}/>
+        <div>{typeMarket}</div>
+    </li>
+    <li className="vertical-list-item">
+        <div>{price}</div>  
+        <FaRubleSign size={20} />
+    </li>
+    <li className="vertical-list-item">
+        <a href={bid} target="_blank" rel="noopener noreferrer">
+            <FaExternalLinkAlt size={25} color='#ef0f33' />
+        </a>
+    </li>
+    <li className="vertical-list-item">
+        <div>Кадастровый номер: {cadastrNumber}</div>
+    </li>
+    <li className="vertical-list-item">
+        <div>Площадь: {S}</div>
+    </li>
+    <li className="vertical-list-item">
+        <FaFireAlt />
+        <div>{gas}</div>
+    </li>
+    <li className="vertical-list-item">
+        <IoWaterOutline size={25} />
+        <div>{water}</div>
+    </li>
+    <li className="vertical-list-item">
+        <FcElectricity />
+        <div>{electricity}</div>
+    </li>
+</p>
 
             <div className="pagination-center">
                 <Pagination defaultCurrent={1} total={30} />
