@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Input, Card, Space, Alert } from "antd";
 import axios from 'axios';
 import Modal from 'react-modal';
@@ -13,10 +13,23 @@ function InputScreen() {
     const [isMapModalOpen, setIsMapModalOpen] = useState(false);
     const [error, setError] = useState(false);
     const [mapData, setMapData] = useState(null);
+    const [isDelayMessageSent, setIsDelayMessageSent] = useState(false);
+
+    const messagesEndRef = useRef(null);
 
     useEffect(() => {
         Modal.setAppElement('#root');
     }, []);
+
+    useEffect(() => {
+        scrollToBottom();
+    }, [messages]);
+
+    const scrollToBottom = () => {
+        if (messagesEndRef.current) {
+            messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+        }
+    };
 
     const openHelpModal = () => {
         setIsHelpModalOpen(true);
@@ -45,10 +58,14 @@ function InputScreen() {
         }
         setError(false);
 
-        const newMessage = { text: inputValue, source: "Пользователь" };
+        const newMessage = { text: inputValue, source: "Вы" };
         setMessages([...messages, newMessage]);
-        const delayMessage = { text: "Вас понял! Ищу площадки......", source: "Бот" };
-        setMessages(prevMessages => [...prevMessages, delayMessage]);
+
+        if (!isDelayMessageSent) {
+            const delayMessage = { text: "Хорошо. Давайте уточним Ваш запрос?", source: "Бот" };
+            setMessages(prevMessages => [...prevMessages, delayMessage]);
+            setIsDelayMessageSent(true);
+        }
 
         axios.post('http://127.0.0.1:8000/api/messages', newMessage, {
             headers: {
@@ -56,16 +73,20 @@ function InputScreen() {
             }
         })
         .then(response => {
-            // Парсинг JSON-ответа
-            const data = JSON.parse(response.data.response);
+            const data = response.data.response;
+            const lastmessage = response.data.last;
+            if (response.data.features!="нема"){
+                console.log(response.data.features);
+                setMapData(JSON.parse(response.data.features));
 
-            // Сохранение данных для карты
-            setMapData(data);
+                }
 
-            // Создание сообщения с использованием значения "Название площадки"
-            const botMessage = { text: data["Название площадки"], source: "Бот" };
-            
-            // Добавление нового сообщения в массив сообщений
+            if (lastmessage == "True"){
+                    const msg = { text: "Спасибо за ответы! Подбираю площадки...", source: "Бот" };
+                     setMessages(prevMessages => [...prevMessages, msg]);
+                }
+
+            const botMessage = { text: data, source: "Бот" };
             setMessages(prevMessages => [...prevMessages, botMessage]);
         })
         .catch(error => {
@@ -93,6 +114,7 @@ function InputScreen() {
                         </Card>
                     ))
                 )}
+                <div ref={messagesEndRef} />
             </div>
 
             <div className="input-wrapper">

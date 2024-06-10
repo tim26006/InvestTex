@@ -76,7 +76,7 @@ const MapModal = ({ isOpen, onRequestClose, mapData }) => {
                     )}
                 </Map>
             </YMaps>
-            <a href={`https://yandex.ru/maps/?panorama[point]=${arr_coordinates[1]},${arr_coordinates[0]}`} target="_blank" rel="noopener noreferrer">
+            <a href={`https://yandex.ru/maps/?panorama[point]=${arr_coordinates[0]},${arr_coordinates[1]}`} target="_blank" rel="noopener noreferrer">
                 <Button className='button_check_panorama' type="primary">Посмотреть панораму</Button>
             </a>
                 
@@ -97,7 +97,7 @@ const MapModal = ({ isOpen, onRequestClose, mapData }) => {
         <div>{price}</div>  
         <FaRubleSign size={20} />
     </li>
-    <li className="vertical-list-item">
+    <li className="vertical-list-item"> Подать заявку
         <a href={bid} target="_blank" rel="noopener noreferrer">
             <FaExternalLinkAlt size={25} color='#ef0f33' />
         </a>

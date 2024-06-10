@@ -234,7 +234,7 @@
   transform: translate(-50%, -50%);
   background-color: #fff;
   border: 1px solid #ccc;
-  border-radius: 10px;
+  border-radius: 20px;
   padding: 20px;
   width: 1000px; /* Фиксированная ширина модального окна */
   max-width: 80%; /* Максимальная ширина 80% ширины экрана */
@@ -252,13 +252,13 @@
   {
     padding: 0;
     margin: 0;
-    font-family: Arial, sans-serif;
+    font-family: Arial;
     font-size: 30px;
-    font-weight: 700;
-    line-height: 120%;
-    text-transform: uppercase;
-}
+    font-weight: 600;
+    line-height: 130%;
+    text-align:center;
 
+}
 
 
 .modalMap .descriptionMap {
@@ -278,9 +278,9 @@
   align-items: center;
   height: 100%; /* Match the height of the grid row */
   width: 100%; /* Match the width of the grid column */
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
   background-color: #fff;
-  border-radius: 10px;
+  border-radius: 30px;
 }
 
 
@@ -301,7 +301,7 @@
 .button_check_panorama {
   background-color: #ef0f33; 
   color: #fff; 
-  border-radius: 20px;
+  border-radius: 15px;
   padding: 10px 20px;
   transition: background-color 0.5s;
   width: 400px;

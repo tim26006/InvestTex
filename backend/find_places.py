@@ -1,25 +1,26 @@
 import pandas as pd
 import json
 
-def find_places_features(place):
+def find_places_features(places:list):
     # Чтение CSV файла
     df = pd.read_csv("Test.csv")
 
-    # Поиск строки с заданной площадкой
-    place_row = df[df['Название площадки'] == place]
+    # Массив для хранения результатов
+    result = []
 
-    if not place_row.empty:
-        # Замена NaN значений на пустые строки
-        place_row = place_row.fillna('')
+    for place in places:
+        # Поиск строки с заданной площадкой
+        place_row = df[df['Название площадки'] == place]
 
-        # Преобразование строки в словарь
-        dict_row = place_row.iloc[0].to_dict()
+        if not place_row.empty:
+            # Замена NaN значений на пустые строки
+            place_row = place_row.fillna('')
 
-        # Конвертация словаря в JSON
-        json_row = json.dumps(dict_row, ensure_ascii=False)
+            # Преобразование строки в словарь
+            dict_row = place_row.iloc[0].to_dict()
 
-        return json_row
+            # Конвертация словаря в JSON и добавление в результат
+            json_row = json.dumps(dict_row, ensure_ascii=False)
+            result.append(json_row)
 
-# Пример использования
-response = find_places_features("Производственное помещение на территории завода 'Москабельмет'")
-print(response)
+    return result ## Выводит массив json
