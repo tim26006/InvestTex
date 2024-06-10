@@ -12,3 +12,4 @@
 - React Icons
 - reCAPTCHA
 - React Yandex Maps
+- react-spinners

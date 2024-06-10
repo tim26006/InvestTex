@@ -248,30 +248,46 @@
 }
 
 
-.title_map {
-  text-align: center;
+.title_map 
+  {
+    padding: 0;
+    margin: 0;
+    font-family: Bebas Neue, sans-serif;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 120%;
+    text-transform: uppercase;
 }
 
-.modalMap .description-block {
+
+
+.modalMap .descriptionMap {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 columns for 2 squares horizontally */
+  grid-template-rows: repeat(5, 100px); /* 5 rows with a fixed height of 100px */
+  gap: 5px; /* gap between squares */
+  padding: 5px;
+  text-align: center;
+  max-width: 100%; /* Adjust as needed */
+  font-family: Arial, sans-serif; /* Example font-family */
+}
+
+.modalMap .descriptionMap li {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: auto; 
-  width: 100%; 
-  margin: 20px 0; 
+  height: 100%; /* Match the height of the grid row */
+  width: 100%; /* Match the width of the grid column */
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   background-color: #fff;
   border-radius: 10px;
 }
 
-.modalMap .descriptionMap {
-  padding: 5px; /* добавьте отступ для текста */
-  text-align: center;
-  max-width: 80%; 
-}
+
 
 .pagination-center {
   display: flex;
   justify-content: center;
   margin-top: 20px; 
 }
+
