@@ -6,7 +6,7 @@ from additional_questions import *
 from AI import *
 from pydantic import BaseModel, EmailStr, Field
 from  find_places import  find_places_features
-from questions import  get_questions
+from questions import  get_questions, define_them_question
 from  prepare_query import prepare_data
 from sqlalchemy import create_engine, Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
@@ -17,6 +17,7 @@ from jose.exceptions import JWTError
 from datetime import datetime, timedelta
 from fastapi import FastAPI, Depends, HTTPException
 from auth import *
+from fastapi.security import OAuth2PasswordBearer
 from db import *
 from models import *
 import json
@@ -58,36 +59,38 @@ user_answers = []
 
 @app.post("/api/messages")
 def read_root(message:Message):
-    global start_message, questions_to_user, query
-    global number_of_question
-    global query_to_bot
-    global user_answers
-    if start_message:  # Здесь обрабатывается начальный запрос и формируются дополнительные вопросы
-        query_to_bot = str(message)
-        questions_to_user = get_questions(str(message))
-        start_message = False
-    if number_of_question < len(questions_to_user): # Задаем вопросы пока не кончатся
-        question = questions_to_user[number_of_question]
-        user_answers.append(message)
-        number_of_question += 1
-        if number_of_question == len(questions_to_user):
-            return {"response": question,"last":"True", "features": "нема"}
-        else:
-            return {"response": question, "last": "False", "features": "нема"}
-    elif number_of_question == len(questions_to_user):
-        # Код, где подбирается площадка
-        query = prepare_data (query_to_bot, questions_to_user, user_answers ) ## Сформировали запрос для нейронки
-        names = place_names(query)  ## Отправили запрос нейронке и получили найденные обьекты
-        start_message = False
-        number_of_question = 0
-        user_answers = []
-        query_to_bot = []
-        features = find_places_features(names)
-        aye = features[0]
-        suka = features[1]
-        blyat = features[2]
-        return {"response": "Нашел несколько площадок для Вас", "features":aye, "answer2":suka, "answer3":blyat, "otvet":True}
-
+    if not(define_them_question(message)):
+        global start_message, questions_to_user, query
+        global number_of_question
+        global query_to_bot
+        global user_answers
+        if start_message:  # Здесь обрабатывается начальный запрос и формируются дополнительные вопросы
+            query_to_bot = str(message)
+            questions_to_user = get_questions(str(message))
+            start_message = False
+        if number_of_question < len(questions_to_user): # Задаем вопросы пока не кончатся
+            question = questions_to_user[number_of_question]
+            user_answers.append(message)
+            number_of_question += 1
+            if number_of_question == len(questions_to_user):
+                return {"response": question,"last":"True", "features": "нема"}
+            else:
+                return {"response": question, "last": "False", "features": "нема"}
+        elif number_of_question == len(questions_to_user):
+            # Код, где подбирается площадка
+            query = prepare_data (query_to_bot, questions_to_user, user_answers ) ## Сформировали запрос для нейронки
+            names = place_names(query)  ## Отправили запрос нейронке и получили найденные обьекты
+            start_message = False
+            number_of_question = 0
+            user_answers = []
+            query_to_bot = []
+            features = find_places_features(names)
+            aye = features[0]
+            suka = features[1]
+            blyat = features[2]
+            return {"response": "Нашел несколько площадок для Вас", "features":aye, "answer2":suka, "answer3":blyat, "otvet":True}
+    else:
+        return {"response": "Данный запрос про льготы и меры поддержки", 'lgots':1}
 
 # Routes
 @app.post("/api/register", response_model=dict)

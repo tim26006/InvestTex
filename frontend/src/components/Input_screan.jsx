@@ -103,6 +103,7 @@ function InputScreen() {
         if (data.last === "True") {
             const msg = { text: "Спасибо за ответы! Подбираю площадки...", source: "Бот" };
             setMessages(prevMessages => [...prevMessages, msg]);
+
         }
     
         try {

@@ -10,3 +10,16 @@ def get_questions(text: str):
     questions = [q.strip() for q in questions if q.strip()]
     return questions [1: -1]
 
+def define_them_question(text:str):
+    giga = GigaChat(
+        credentials="NmQ1OTVhZTEtNmQ5Yy00ZmNlLWJkNWMtMTAxYmY4MTU3MWJmOjRiYTEyYzQ4LWNiY2UtNDdlZi1hODIyLWMyNDVhMzFiMGJiNg==",
+        verify_ssl_certs=False, model="GigaChat")
+    response = giga.chat(
+        f"{text} -> Тебе необходимо определить, является ли заданный запрос вопросом или просьбой узнать про льготы, меры поддержки или же подать заявку. В случае если да, то выводи в ответе [1], иначе [0]")
+    response = response.choices[0].message.content
+    if response == "[1]":
+        return True
+    if response == "[0]":
+        return  False
+
+
