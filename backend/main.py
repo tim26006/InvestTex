@@ -68,8 +68,7 @@ def read_root(message:Message):
         number_of_question = 0
         user_answers = []
         query_to_bot = []
-        features = find_places_features(names)[0]
-
+        features = find_places_features(names)
         return {"response": "Нашел несколько площадок для Вас", "features":features, "otvet":True}
 
 

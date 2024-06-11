@@ -73,21 +73,15 @@ function InputScreen() {
             }
         })
         .then(response => {
-            const data = response.data.response;
-            const lastmessage = response.data.last;
-            if (response.data.features!="нема"){
-                console.log(response.data.features);
-                setMapData(JSON.parse(response.data.features));
+            const responseData = response.data;
 
-                }
-
-            if (lastmessage == "True"){
-                    const msg = { text: "Спасибо за ответы! Подбираю площадки...", source: "Бот" };
-                     setMessages(prevMessages => [...prevMessages, msg]);
-                }
-
-            const botMessage = { text: data, source: "Бот" };
-            setMessages(prevMessages => [...prevMessages, botMessage]);
+            if (Array.isArray(responseData)) {
+                responseData.forEach(data => {
+                    handleResponse(data);
+                });
+            } else {
+                handleResponse(responseData);
+            }
         })
         .catch(error => {
             console.error(error);
@@ -96,12 +90,31 @@ function InputScreen() {
         setInputValue('');
     };
 
+    const handleResponse = (data) => {
+        console.log("Response data:", data); // Log the response data to the console
+        
+        const message = { text: data.response, source: "Бот" };
+        setMessages(prevMessages => [...prevMessages, message]);
+        
+        if (data.last === "True") {
+            const msg = { text: "Спасибо за ответы! Подбираю площадки...", source: "Бот" };
+            setMessages(prevMessages => [...prevMessages, msg]);
+        }
+    
+        try {
+            const jsonData = JSON.parse(data.features);
+            if (jsonData !== "нема") {
+                setMapData(jsonData);
+            }
+        } catch (error) {
+            console.error("Error parsing JSON data:", error);
+        }
+    };
+    
     return (
         <div className='input'>
             <div className="messages">
-                <div className='map'>
-                    <button onClick={openMapModal}>Карта</button>
-                </div>
+                <div className='map'></div>
                 {messages.length === 0 ? (
                     <div className="welcome-message">Здравствуйте! Начните чат, введя сообщение ниже.</div>
                 ) : (
@@ -111,6 +124,9 @@ function InputScreen() {
                             <p style={{ fontSize: 18 }}>
                                 {message.text}
                             </p>
+                            {message.text === "Нашел несколько площадок для Вас" && (
+                                <button onClick={openMapModal}>Карта</button>
+                            )}
                         </Card>
                     ))
                 )}

@@ -28,7 +28,7 @@ const PersonalArea = () => {
   const renderMessage = () => {
     switch (selectedItem) {
       case '1':
-        return <div>Тут инфа про юзера</div>;
+        return <div>Тут инфа про юзера  </div>;
       case '2':
         return <div><Card
         title="Название"
