@@ -133,8 +133,8 @@ function InputScreen() {
                                 {message.text}
                             </p>
                             {message.text === "Нашел несколько площадок для Вас" && (
-                            <div>
-                                <button onClick={() => setIsMapModalOpen1(true)}>Карта 1</button>
+                            <div className='button_check_offer'>
+                                <button onClick={() => setIsMapModalOpen1(true)}>Посмотреть</button>
                             </div>
                         )}
                         </Card>

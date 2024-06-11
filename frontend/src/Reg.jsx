@@ -39,6 +39,7 @@ const Reg = () => {
         console.log(data)
       const response = await axios.post('http://localhost:8000/api/register', data);
       console.log(response.data);
+      Navigate('/personal');
       alert("успешно");
     } catch (error) {
       console.error('Ошибка при выполнении запроса:', error);

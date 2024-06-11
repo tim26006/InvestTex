@@ -4,6 +4,7 @@
 - Transformers
 - OpenAI GPT2 
 - RuGPT-3
+- GigaChat
 ## Frontend - React
 - Talwind CSS
 - Ant Design 5.0

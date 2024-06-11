@@ -22,6 +22,9 @@ from models import *
 import json
 
 
+
+#uvicorn main:app
+
 logging.basicConfig(level=logging.INFO)
 app = FastAPI()
 
@@ -130,3 +133,4 @@ async def login_user(user: UserLogin, db: Session = Depends(get_db)):
     data={"sub": db_user.email}, expires_delta=access_token_expires)
 
     return {"access_token": access_token, "token_type": "bearer"}
+
