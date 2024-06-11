@@ -11,10 +11,15 @@ function Header() {
         navigate('/reg');
         console.log("Переход на страницу регистарции");
     };
+    const handleClicklogin = () => {
+        navigate('/login');
+        console.log("Переход на страницу авторизации");
+    };
+
 
     return (
         <div className='header'>
-            <Button type="primary">Авторизация</Button>
+            <Button type="primary" onClick={handleClicklogin}>Авторизация</Button>
             <Button type="primary" onClick={handleClickRegistration}>Регистрация</Button>
         </div>
     );

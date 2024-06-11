@@ -34,5 +34,6 @@ def find_places_features(places: list):
 
     return result  # Выводит массив json
 
-# Пример вызова функции
-print(len(find_places_features(["Земельный участок 0,38 га", "Помещение 32 кв.м. в технопарке Физтехпарк", "Помещение 222 кв.м. в технопарке Элма"])))
+
+
+
