@@ -10,9 +10,13 @@ function InputScreen() {
     const [inputValue, setInputValue] = useState('');
     const [messages, setMessages] = useState([]);
     const [isHelpModalOpen, setIsHelpModalOpen] = useState(false);
-    const [isMapModalOpen, setIsMapModalOpen] = useState(false);
+    const [isMapModalOpen1, setIsMapModalOpen1] = useState(false);
+    const [isMapModalOpen2, setIsMapModalOpen2] = useState(false);
+    const [isMapModalOpen3, setIsMapModalOpen3] = useState(false);
     const [error, setError] = useState(false);
     const [mapData, setMapData] = useState(null);
+    const [mapData1, setMapData1] = useState(null);
+    const [mapData2, setMapData2] = useState(null);
     const [isDelayMessageSent, setIsDelayMessageSent] = useState(false);
 
     const messagesEndRef = useRef(null);
@@ -103,8 +107,12 @@ function InputScreen() {
     
         try {
             const jsonData = JSON.parse(data.features);
+            const answer = JSON.parse(data.answer2);
+            const answer2 = JSON.parse(data.answer3);
             if (jsonData !== "нема") {
                 setMapData(jsonData);
+                setMapData1(answer);
+                setMapData2(answer2);
             }
         } catch (error) {
             console.error("Error parsing JSON data:", error);
@@ -125,8 +133,10 @@ function InputScreen() {
                                 {message.text}
                             </p>
                             {message.text === "Нашел несколько площадок для Вас" && (
-                                <button onClick={openMapModal}>Карта</button>
-                            )}
+                            <div>
+                                <button onClick={() => setIsMapModalOpen1(true)}>Карта 1</button>
+                            </div>
+                        )}
                         </Card>
                     ))
                 )}
@@ -164,7 +174,8 @@ function InputScreen() {
                 </p>
             </Modal>
 
-            <MapModal isOpen={isMapModalOpen} onRequestClose={closeMapModal} mapData={mapData} />
+            <MapModal isOpen={isMapModalOpen1} onRequestClose={() => setIsMapModalOpen1(false)} mapData={mapData} mapDataone={mapData1} mapDatatwo={mapData2}/>
+
 
             {error && (
                 <div className="centered-error">

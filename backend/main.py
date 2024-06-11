@@ -69,7 +69,10 @@ def read_root(message:Message):
         user_answers = []
         query_to_bot = []
         features = find_places_features(names)
-        return {"response": "Нашел несколько площадок для Вас", "features":features, "otvet":True}
+        aye = features[0]
+        suka = features[1]
+        blyat = features[2]
+        return {"response": "Нашел несколько площадок для Вас", "features":aye, "answer2":suka, "answer3":blyat, "otvet":True}
 
 
     # response = assistant.get_answer(str(message.text))
