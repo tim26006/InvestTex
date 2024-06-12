@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Modal, Button } from 'antd';
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { BiHomeAlt2 } from "react-icons/bi";
@@ -6,9 +6,44 @@ import { FaRubleSign, FaExternalLinkAlt, FaRegHandshake, FaFireAlt } from "react
 import { IoWaterOutline } from "react-icons/io5";
 import { FcElectricity } from "react-icons/fc";
 import { TbLetterS  } from "react-icons/tb";
-
+import axios from 'axios'; // Импортируем axios
 
 function Compare ({ isOpen, onRequestClose, data1, data2, data3 })  {
+
+    const [selectedObject1, setSelectedObject1] = useState(false);
+  const [selectedObject2, setSelectedObject2] = useState(false);
+  const [selectedObject3, setSelectedObject3] = useState(false);
+    const [reportData, setReportData] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (isOpen) {
+        setIsLoading(true);
+      const dataToSend = {
+        "data1": [data1["Название площадки"], data1["Стоимость объекта, руб. (покупки или месячной аренды)"], data1["Свободная площадь здания, сооружения, помещения, кв. м"], data1["Форма сделки"] ],
+        "data2": [data2["Название площадки"], data2["Стоимость объекта, руб. (покупки или месячной аренды)"], data2["Свободная площадь здания, сооружения, помещения, кв. м"], data2["Форма сделки"] ],
+        "data3": [data3["Название площадки"], data3["Стоимость объекта, руб. (покупки или месячной аренды)"], data3["Свободная площадь здания, сооружения, помещения, кв. м"], data3["Форма сделки"]]
+      };
+
+      axios.post('http://127.0.0.1:8000/api/compare', dataToSend, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+        .then(response => {
+          console.log('Data sent successfully', response.data);
+           setReportData(response.data);
+        })
+        .catch(error => {
+          console.error('There was an error!', error);
+        })
+        .finally(() => {
+          setIsLoading(false); // Устанавливаем isLoading в false после завершения запроса
+            });
+    }
+  }, [isOpen, data1, data2, data3]);
+
+
 
     const placeName1 = data1 ? data1["Название площадки"] : "Название";
     const placeName2= data2 ? data2["Название площадки"] : "Название";
@@ -136,7 +171,12 @@ if (type3 === "Помещение") {
                     <div><IoWaterOutline size={20} /> Наличие водоснабжения: {water1}</div>
                     <div><FcElectricity /> Наличие электроснабжения: {electricity1}</div>
                     <div><FaFireAlt /> Наличие газоснабжения: {gas1}</div>
-                    <Button>Выбрать объект</Button>
+                    <Button
+                        type={selectedObject1 ? "primary" : "default"}
+                        onClick={() => setSelectedObject1(!selectedObject1)}
+                    >
+                        Выбрать объект
+                    </Button>
                     </div>
 
                  </div>
@@ -154,7 +194,12 @@ if (type3 === "Помещение") {
                     <div><IoWaterOutline size={20} /> Наличие водоснабжения: {water2}</div>
                     <div><FcElectricity /> Наличие электроснабжения: {electricity2}</div>
                     <div><FaFireAlt /> Наличие газоснабжения: {gas2}</div>
-                    <Button>Выбрать объект</Button>
+                    <Button
+                        type={selectedObject2 ? "primary" : "default"}
+                        onClick={() => setSelectedObject2(!selectedObject2)}
+                    >
+                        Выбрать объект
+                    </Button>
                     </div>
                 </div>
 
@@ -171,10 +216,22 @@ if (type3 === "Помещение") {
                     <div><IoWaterOutline size={20} /> Наличие водоснабжения: {water3}</div>
                     <div><FcElectricity /> Наличие электроснабжения: {electricity3}</div>
                     <div><FaFireAlt /> Наличие газоснабжения: {gas3}</div>
-                    <Button>Выбрать объект</Button>
+                    <Button
+                        type={selectedObject3 ? "primary" : "default"}
+                        onClick={() => setSelectedObject3(!selectedObject3)}
+                    >
+                        Выбрать объект
+                    </Button>
                     </div>
                 </div>
         </div>
+        <div className='report'>
+          {/* Проверка isLoading */}
+          {isLoading && <div>Загрузка...</div>}
+          {/* Если reportData - это не пустая строка, выводим данные */}
+          {reportData && reportData !== '' && <pre>{JSON.stringify(reportData, null, 2)}</pre>}
+        </div>
+         <div className="button_report" style={{ backgroundColor: selectedObject1 || selectedObject2 || selectedObject3 ? '#ef0f33' : '#fff' }}>Сформировать отчёт</div>
       </Modal>
 
     </>

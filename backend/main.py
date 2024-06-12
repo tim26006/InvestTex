@@ -2,9 +2,10 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 import logging
-
+from starlette.requests import Request
 from starlette.status import HTTP_401_UNAUTHORIZED
-
+from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse
 from additional_questions import *
 from AI import *
 from pydantic import BaseModel, EmailStr, Field
@@ -21,8 +22,10 @@ from datetime import datetime, timedelta
 from fastapi import FastAPI, Depends, HTTPException
 from auth import *
 from fastapi.security import OAuth2PasswordBearer
+from prepare_compare import prepare_data_to_compare
 from db import *
 from models import *
+from compare import  compare
 import json
 
 
@@ -178,3 +181,12 @@ async def get_user_info(token: str = Depends(oauth2_scheme), db: Session = Depen
         raise credentials_exception
     return user
 
+
+
+@app.post("/api/compare")
+async def compare_objects(request: Request):
+    body = await request.json()
+    prepare_data = prepare_data_to_compare(body)
+    compared = compare(str(prepare_data))
+    print(compared)
+    return {"message": compared}
