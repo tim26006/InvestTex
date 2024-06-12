@@ -11,6 +11,9 @@ function Login() {
   const navigate = useNavigate(); // Use the useNavigate function to redirect users
   const antIcon = <LoadingOutlined style={{ fontSize: 100, color: 'red' }} spin />;
   const [isLoading, setIsLoading] = useState(false);
+  const [errorAlert, setErrorAlert] = useState(null); // State for error alert
+
+
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -26,8 +29,10 @@ function Login() {
       navigate('/personal');
     } catch (error) {
       console.error('Error while making the request:', error);
-      if (error.response.status === 400){
-        <Alert message="Введены неверные данные" type="warning" />
+      if (error.response && error.response.status === 400) {
+        setErrorAlert('Введены неверные данные');
+      } else {
+        setErrorAlert('Произошла ошибка при входе. Пожалуйста, попробуйте еще раз.'); // Set error message
       }
       // Handle login error
     } finally {
@@ -42,6 +47,7 @@ function Login() {
 
   return (
     <div className='Window_login'>
+      {errorAlert && <Alert message={errorAlert} type="error"/>}
       <h1>Вход</h1>
       <div>
       <div className='text'>
