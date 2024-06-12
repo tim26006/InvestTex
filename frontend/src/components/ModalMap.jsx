@@ -9,6 +9,7 @@ import { IoWaterOutline } from "react-icons/io5";
 import { FcElectricity } from "react-icons/fc";
 
 const MapModal = ({ isOpen, onRequestClose, mapData, mapDataone, mapDatatwo }) => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const coordinates = mapData ? mapData["Координаты (точка)"] : "Координаты";
     let arr_coordinates = coordinates.split(',');
     arr_coordinates.reverse();
@@ -17,6 +18,8 @@ const MapModal = ({ isOpen, onRequestClose, mapData, mapDataone, mapDatatwo }) =
     const placeName = mapData ? mapData["Название площадки"] : "Название";
     const adress = mapData ? mapData["Адрес объекта"] : "Адрес";
     const bid = mapData ? mapData["Ссылка на форму подачи заявки"] : "URL";
+    const img = mapData ? mapData["Фотографии объекта"]:"Фото";
+    const splittedImg = img.split("https://").filter(Boolean).map(url => "https://" + url);
     let electricity = "Электричество";
     let water = "Вода";
     let gas = "Газ";
@@ -141,10 +144,13 @@ const MapModal = ({ isOpen, onRequestClose, mapData, mapDataone, mapDatatwo }) =
         case 1:
             content = (
                 <>
+
                     <h1 className='title_map'>{placeName}</h1>
+                     <img src={splittedImg[0]}></img>
                     <YMaps>
                         <Map
                             className="custom-map"
+
                             defaultState={{
                                 center: arr_coordinates, // Устанавливаем центр карты в координаты маркера
                                 zoom: 18, // Устанавливаем желаемый уровень масштабирования
@@ -160,11 +166,13 @@ const MapModal = ({ isOpen, onRequestClose, mapData, mapDataone, mapDatatwo }) =
                                     }}
                                     modules={["geoObject.addon.balloon"]}
                                 />
+
                             )}
                         </Map>
                     </YMaps>
                     <a href={`https://yandex.ru/maps/?panorama[point]=${arr_coordinates[0]},${arr_coordinates[1]}`} target="_blank" rel="noopener noreferrer">
                         <Button className='button_check_panorama' type="primary">Посмотреть панораму</Button>
+
                     </a>
 
                     <p className="descriptionMap" style={{ fontFamily: 'Arial', fontSize: '20px' }}>
@@ -208,6 +216,7 @@ const MapModal = ({ isOpen, onRequestClose, mapData, mapDataone, mapDatatwo }) =
                             <div>{electricity}</div>
                         </li>
                     </p>
+
                 </>
             );
             break;
@@ -368,7 +377,9 @@ const MapModal = ({ isOpen, onRequestClose, mapData, mapDataone, mapDatatwo }) =
             {content}
             <div className="pagination-center">
                         <Pagination defaultCurrent={1} total={30} onChange={handlePageChange} />
+
                     </div>
+                     <div className='button_compare'>Сравнить</div>
         </Modal>
     );
 };

@@ -68,7 +68,7 @@ def read_root(message:Message):
             query_to_bot = str(message)
             questions_to_user = get_questions(str(message))
             start_message = False
-        if number_of_question < len(questions_to_user): # Задаем вопросы пока не кончатся
+        if number_of_question< len(questions_to_user): # Задаем вопросы пока не кончатся
             question = questions_to_user[number_of_question]
             user_answers.append(message)
             number_of_question += 1
@@ -80,8 +80,9 @@ def read_root(message:Message):
             # Код, где подбирается площадка
             query = prepare_data (query_to_bot, questions_to_user, user_answers ) ## Сформировали запрос для нейронки
             names = place_names(query)  ## Отправили запрос нейронке и получили найденные обьекты
-            start_message = False
+            start_message = True
             number_of_question = 0
+            questions_to_user = []
             user_answers = []
             query_to_bot = []
             features = find_places_features(names)

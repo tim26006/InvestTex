@@ -6,6 +6,7 @@ import { IoMdHelp } from "react-icons/io";
 import { FiSend } from "react-icons/fi";
 import MapModal from './ModalMap';
 
+
 function InputScreen() {
     const [inputValue, setInputValue] = useState('');
     const [messages, setMessages] = useState([]);
@@ -104,8 +105,28 @@ function InputScreen() {
             const msg = { text: "Спасибо за ответы! Подбираю площадки...", source: "Бот" };
             setMessages(prevMessages => [...prevMessages, msg]);
 
+            // Немедленно после установки сообщения отправляем запрос на бэкэнд
+            axios.post('http://127.0.0.1:8000/api/get-platforms', { withCredentials: true }, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                const responseData = response.data;
+
+                if (Array.isArray(responseData)) {
+                    responseData.forEach(data => {
+                        handleResponse(data);
+                    });
+                } else {
+                    handleResponse(responseData);
+                }
+            })
+            .catch(error => {
+                console.error(error);
+            });
         }
-    
+
         try {
             const jsonData = JSON.parse(data.features);
             const answer = JSON.parse(data.answer2);
