@@ -15,24 +15,6 @@ const MapModal = ({ isOpen, onRequestClose, mapData, mapDataone, mapDatatwo }) =
     const [isCompareModalOpen, setIsCompareModalOpen] = useState(false);
 
 
-
-    const coordinates = mapData ? mapData["Координаты (точка)"] : "Координаты";
-    let arr_coordinates = coordinates.split(',');
-    arr_coordinates.reverse();
-    const type = mapData ? mapData["Формат площадки"] : "Формат";
-    const typeMarket = mapData ? mapData["Форма сделки"] : "Форма";
-    const placeName = mapData ? mapData["Название площадки"] : "Название";
-    const adress = mapData ? mapData["Адрес объекта"] : "Адрес";
-    const bid = mapData ? mapData["Ссылка на форму подачи заявки"] : "URL";
-    const img = mapData ? mapData["Фотографии объекта"]:"Фото";
-    const splittedImg = img.split("https://").filter(Boolean).map(url => "https://" + url);
-    let electricity = "Электричество";
-    let water = "Вода";
-    let gas = "Газ";
-    let S = "Площадь";
-    let cadastrNumber = "Номер";
-    let price = "Цена";
-
     const [currentPage, setCurrentPage] = useState(1);
 
     const handlePageChange = (page) => {
@@ -54,8 +36,26 @@ const MapModal = ({ isOpen, onRequestClose, mapData, mapDataone, mapDatatwo }) =
         setIsModalOpen(false);
       };
 
+
+    const coordinates = mapData ? mapData["Координаты (точка)"] : "Координаты";
+    let arr_coordinates = coordinates.split(',');
+    arr_coordinates.reverse();
+    const type = mapData ? mapData["Формат площадки"] : "Формат";
+    const typeMarket = mapData ? mapData["Форма сделки"] : "Форма";
+    const placeName = mapData ? mapData["Название площадки"] : "Название";
+    const adress = mapData ? mapData["Адрес объекта"] : "Адрес";
+    const bid = mapData ? mapData["Ссылка на форму подачи заявки"] : "URL";
+    const img = mapData ? mapData["Фотографии объекта"]:"Фото";
+    let electricity = "Электричество";
+    let water = "Вода";
+    let gas = "Газ";
+    let S = "Площадь";
+    let cadastrNumber = "Номер";
+    let price = "Цена";
+
     if (typeMarket === 'Продажа через аукцион') {
         price = mapData ? mapData["Порядок определения стоимости"] : "Цена";
+        price = price.replace("Стоимость определяется в ходе проведения торгов.", "");
     }
     if (typeMarket === 'Аренда') {
         price = mapData ? mapData["Стоимость объекта, руб. (покупки или месячной аренды)"] : "Цена";
@@ -95,27 +95,29 @@ const MapModal = ({ isOpen, onRequestClose, mapData, mapDataone, mapDatatwo }) =
     let price1 = "Цена";
 
     if (typeMarket === 'Продажа через аукцион') {
-        price = mapDataone  ? mapDataone["Порядок определения стоимости"] : "Цена";
+        price1 = mapDataone  ? mapDataone["Порядок определения стоимости"] : "Цена";
+        price1 = price1.replace("Стоимость определяется в ходе проведения торгов.", "");
     }
     if (typeMarket === 'Аренда') {
-        price = mapDataone  ? mapDataone["Стоимость объекта, руб. (покупки или месячной аренды)"] : "Цена";
+        price1 = mapDataone  ? mapDataone["Стоимость объекта, руб. (покупки или месячной аренды)"] : "Цена";
     }
     if (typeMarket === 'Аренда через аукцион') {
-        price = mapDataone ? mapDataone["Порядок определения стоимости"] : "Цена";
+        price1 = mapDataone ? mapDataone["Порядок определения стоимости"] : "Цена";
     }
-    if (type === "Земельный участок") {
-        cadastrNumber = mapDataone ? mapDataone["Кадастровый номер ЗУ"] : "Номер";
-        S = mapDataone ? mapDataone["Свободная площадь ЗУ, га"] : "Площадь";
-        water = mapDataone ? mapDataone["Водоснабжение Наличие (Да/Нет)"] : "Вода";
-        electricity = mapDataone ? mapDataone["Электроснабжение Наличие (Да/Нет)"] : "Электро";
-        gas = mapDataone ? mapDataone["Газоснабжение Наличие (Да/Нет)"] : "Газ";
+    if (type1 === "Земельный участок") {
+
+        cadastrNumber1 = mapDataone ? mapDataone["Кадастровый номер ЗУ"] : "Номер";
+        S1 = mapDataone ? mapDataone["Свободная площадь ЗУ, га"] : "Площадь";
+        water1 = mapDataone ? mapDataone["Водоснабжение Наличие (Да/Нет)"] : "Вода";
+        electricity1 = mapDataone ? mapDataone["Электроснабжение Наличие (Да/Нет)"] : "Электро";
+        gas1 = mapDataone ? mapDataone["Газоснабжение Наличие (Да/Нет)"] : "Газ";
     }
-    if (type === "Помещение") {
-        cadastrNumber = mapDataone ? mapDataone["Кадастровый номер здания, сооружения, помещения"] : "Номер";
-        S = mapDataone ? mapDataone["Свободная площадь здания, сооружения, помещения, кв. м"] : "Площадь";
-        gas = mapDataone ? mapDataone["Газоснабжение Наличие (Да/Нет)"] : "Газ";
-        water = mapDataone ? mapDataone["Водоснабжение Наличие (Да/Нет)"] : "Вода";
-        electricity = mapDataone ? mapDataone["Электроснабжение Наличие (Да/Нет)"] : "Электро";
+    if (type1 === "Помещение") {
+        cadastrNumber1 = mapDataone ? mapDataone["Кадастровый номер здания, сооружения, помещения"] : "Номер";
+        S1 = mapDataone ? mapDataone["Свободная площадь здания, сооружения, помещения, кв. м"] : "Площадь";
+        gas1 = mapDataone ? mapDataone["Газоснабжение Наличие (Да/Нет)"] : "Газ";
+        water1 = mapDataone ? mapDataone["Водоснабжение Наличие (Да/Нет)"] : "Вода";
+        electricity1 = mapDataone ? mapDataone["Электроснабжение Наличие (Да/Нет)"] : "Электро";
     }
 
 
@@ -134,28 +136,29 @@ const MapModal = ({ isOpen, onRequestClose, mapData, mapDataone, mapDatatwo }) =
     let cadastrNumber2 = "Номер";
     let price2 = "Цена";
 
-    if (typeMarket === 'Продажа через аукцион') {
-        price = mapDatatwo  ? mapDatatwo["Порядок определения стоимости"] : "Цена";
+    if (typeMarket2 === 'Продажа через аукцион') {
+        price2 = mapDatatwo  ? mapDatatwo["Порядок определения стоимости"] : "Цена";
+        price2 = price2.replace("Стоимость определяется в ходе проведения торгов.", "");
     }
-    if (typeMarket === 'Аренда') {
-        price = mapDatatwo  ? mapDatatwo["Стоимость объекта, руб. (покупки или месячной аренды)"] : "Цена";
+    if (typeMarket2 === 'Аренда') {
+        price2 = mapDatatwo  ? mapDatatwo["Стоимость объекта, руб. (покупки или месячной аренды)"] : "Цена";
     }
-    if (typeMarket === 'Аренда через аукцион') {
-        price = mapDatatwo ? mapDatatwo["Порядок определения стоимости"] : "Цена";
+    if (typeMarket2 === 'Аренда через аукцион') {
+        price2 = mapDatatwo ? mapDatatwo["Порядок определения стоимости"] : "Цена";
     }
-    if (type === "Земельный участок") {
-        cadastrNumber = mapDatatwo ? mapDatatwo["Кадастровый номер ЗУ"] : "Номер";
-        S = mapDatatwo ? mapDatatwo["Свободная площадь ЗУ, га"] : "Площадь";
-        water = mapDatatwo ? mapDatatwo["Водоснабжение Наличие (Да/Нет)"] : "Вода";
-        electricity = mapDatatwo ? mapDatatwo["Электроснабжение Наличие (Да/Нет)"] : "Электро";
-        gas = mapDatatwo ? mapDatatwo["Газоснабжение Наличие (Да/Нет)"] : "Газ";
+    if (type2 === "Земельный участок") {
+        cadastrNumber2 = mapDatatwo ? mapDatatwo["Кадастровый номер ЗУ"] : "Номер";
+        S2 = mapDatatwo ? mapDatatwo["Свободная площадь ЗУ, га"] : "Площадь";
+        water2 = mapDatatwo ? mapDatatwo["Водоснабжение Наличие (Да/Нет)"] : "Вода";
+        electricity2 = mapDatatwo ? mapDatatwo["Электроснабжение Наличие (Да/Нет)"] : "Электро";
+        gas2 = mapDatatwo ? mapDatatwo["Газоснабжение Наличие (Да/Нет)"] : "Газ";
     }
-    if (type === "Помещение") {
-        cadastrNumber = mapDatatwo ? mapDatatwo["Кадастровый номер здания, сооружения, помещения"] : "Номер";
-        S = mapDatatwo ? mapDatatwo["Свободная площадь здания, сооружения, помещения, кв. м"] : "Площадь";
-        gas = mapDatatwo ? mapDatatwo["Газоснабжение Наличие (Да/Нет)"] : "Газ";
-        water = mapDatatwo ? mapDatatwo["Водоснабжение Наличие (Да/Нет)"] : "Вода";
-        electricity = mapDatatwo ? mapDatatwo["Электроснабжение Наличие (Да/Нет)"] : "Электро";
+    if (type2 === "Помещение") {
+        cadastrNumber2 = mapDatatwo ? mapDatatwo["Кадастровый номер здания, сооружения, помещения"] : "Номер";
+        S2 = mapDatatwo ? mapDatatwo["Свободная площадь здания, сооружения, помещения, кв. м"] : "Площадь";
+        gas2 = mapDatatwo ? mapDatatwo["Газоснабжение Наличие (Да/Нет)"] : "Газ";
+        water2 = mapDatatwo ? mapDatatwo["Водоснабжение Наличие (Да/Нет)"] : "Вода";
+        electricity2 = mapDatatwo ? mapDatatwo["Электроснабжение Наличие (Да/Нет)"] : "Электро";
     }
 
 
@@ -171,7 +174,7 @@ const MapModal = ({ isOpen, onRequestClose, mapData, mapDataone, mapDatatwo }) =
                     <YMaps>
                         <Map
                             className="custom-map"
-
+                            key={currentPage}
                             defaultState={{
                                 center: arr_coordinates, // Устанавливаем центр карты в координаты маркера
                                 zoom: 18, // Устанавливаем желаемый уровень масштабирования
@@ -248,6 +251,7 @@ const MapModal = ({ isOpen, onRequestClose, mapData, mapDataone, mapDatatwo }) =
                     <YMaps>
                         <Map
                             className="custom-map"
+                            key={currentPage}
                             defaultState={{
                                 center: arr_coordinates1, // Устанавливаем центр карты в координаты маркера
                                 zoom: 18, // Устанавливаем желаемый уровень масштабирования
@@ -284,9 +288,9 @@ const MapModal = ({ isOpen, onRequestClose, mapData, mapDataone, mapDatatwo }) =
                             <div>{typeMarket1}</div>
                         </li>
                         <li className="vertical-list-item">
-                            <div>{price1}</div>
+                            <div>{price1}</div> 
                             <FaRubleSign size={20} />
-                        </li>
+                        </li> 
                         <li className="vertical-list-item">
                             <a href={bid1} target="_blank" rel="noopener noreferrer">
                                 <FaExternalLinkAlt size={25} color='#ef0f33' />
@@ -322,6 +326,7 @@ const MapModal = ({ isOpen, onRequestClose, mapData, mapDataone, mapDatatwo }) =
                     <YMaps>
                         <Map
                             className="custom-map"
+                            key={currentPage}
                             defaultState={{
                                 center: arr_coordinates2, // Устанавливаем центр карты в координаты маркера
                                 zoom: 18, // Устанавливаем желаемый уровень масштабирования

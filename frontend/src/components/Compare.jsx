@@ -44,6 +44,7 @@ function Compare ({ isOpen, onRequestClose, data1, data2, data3 })  {
 
     if (typeMarket1 === 'Продажа через аукцион') {
       price1 = data1 ? data1["Порядок определения стоимости"] : "Цена";
+      price1 = price1.replace("Стоимость определяется в ходе проведения торгов.", "");
     }
     if (typeMarket1 === 'Аренда') {
       price1 = data1 ? data1["Стоимость объекта, руб. (покупки или месячной аренды)"] : "Цена";
@@ -55,6 +56,7 @@ function Compare ({ isOpen, onRequestClose, data1, data2, data3 })  {
 
    if (typeMarket2 === 'Продажа через аукцион') {
        price2 = data2 ? data2["Порядок определения стоимости"] : "Цена";
+       price2 = price2.replace("Стоимость определяется в ходе проведения торгов.", "");
     }
     if (typeMarket2 === 'Аренда') {
       price2 = data2 ? data2["Стоимость объекта, руб. (покупки или месячной аренды)"] : "Цена";
@@ -66,6 +68,7 @@ function Compare ({ isOpen, onRequestClose, data1, data2, data3 })  {
 
     if (typeMarket3 === 'Продажа через аукцион') {
         price3 = data3 ? data3["Порядок определения стоимости"] : "Цена";
+        price3 = price3.replace("Стоимость определяется в ходе проведения торгов.", "");
       }
       if (typeMarket3 === 'Аренда') {
         price3 = data3 ? data3["Стоимость объекта, руб. (покупки или месячной аренды)"] : "Цена";
