@@ -1,28 +1,61 @@
-import { useState } from 'react'
-import { Button } from 'antd';
+import { useState, useEffect } from 'react';
+import { Button, Card } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
 function Header() {
-    const [count, setCount] = useState(0);
-    const navigate = useNavigate();
+  const [count, setCount] = useState(0);
+  const navigate = useNavigate();
+  const [userInfo, setUserInfo] = useState(null);
+  const token = localStorage.getItem('access_token');
 
+  useEffect(() => {
+    if (token) {
+      fetch('http://localhost:8000/api/user_info', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      .then(response => response.json())
+      .then(data => setUserInfo(data))
+      .catch(error => console.error('Error fetching user info:', error));
+    }
+  }, [token]);
 
-    const handleClickRegistration = () => {
-        navigate('/reg');
-        console.log("Переход на страницу регистарции");
-    };
-    const handleClicklogin = () => {
-        navigate('/login');
-        console.log("Переход на страницу авторизации");
-    };
+  const handleClickRegistration = () => {
+    navigate('/reg');
+    console.log("Переход на страницу регистарции");
+  };
 
+  const handleClicklogin = () => {
+    navigate('/login');
+    console.log("Переход на страницу авторизации");
+  };
 
+  if (!token) {
     return (
-        <div className='header'>
-            <Button type="primary" onClick={handleClicklogin}>Авторизация</Button>
-            <Button type="primary" onClick={handleClickRegistration}>Регистрация</Button>
-        </div>
+      <div className='header'>
+        <Button type="primary" onClick={handleClicklogin}>Авторизация</Button>
+        <Button type="primary" onClick={handleClickRegistration}>Регистрация</Button>
+      </div>
     );
+  }
+
+  return (
+    <Card
+  extra={
+    <a href="/personal" className="custom-link">
+      Личный кабинет
+    </a>
+  }
+  style={{
+    width: 300,
+    left: 1600,
+  }}
+>
+  {userInfo && <div className='text_user'>{userInfo.fio}</div>}
+</Card>
+  );
 }
 
 export default Header;
