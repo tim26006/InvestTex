@@ -7,9 +7,15 @@ import { BiHomeAlt2 } from "react-icons/bi";
 import { FaRubleSign, FaExternalLinkAlt, FaRegHandshake, FaFireAlt } from "react-icons/fa";
 import { IoWaterOutline } from "react-icons/io5";
 import { FcElectricity } from "react-icons/fc";
+import Compare from './Compare';
 
 const MapModal = ({ isOpen, onRequestClose, mapData, mapDataone, mapDatatwo }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const [isCompareModalOpen, setIsCompareModalOpen] = useState(false);
+
+
+
     const coordinates = mapData ? mapData["Координаты (точка)"] : "Координаты";
     let arr_coordinates = coordinates.split(',');
     arr_coordinates.reverse();
@@ -32,6 +38,21 @@ const MapModal = ({ isOpen, onRequestClose, mapData, mapDataone, mapDatatwo }) =
     const handlePageChange = (page) => {
         setCurrentPage(page);
     };
+
+
+    const showCompareModal = () => {
+        setIsCompareModalOpen(true);
+    };
+
+    const showModal = () => {
+        setIsModalOpen(true);
+      };
+      const handleOk = () => {
+        setIsModalOpen(false);
+      };
+      const handleCancel = () => {
+        setIsModalOpen(false);
+      };
 
     if (typeMarket === 'Продажа через аукцион') {
         price = mapData ? mapData["Порядок определения стоимости"] : "Цена";
@@ -379,7 +400,9 @@ const MapModal = ({ isOpen, onRequestClose, mapData, mapDataone, mapDatatwo }) =
                         <Pagination defaultCurrent={1} total={30} onChange={handlePageChange} />
 
                     </div>
-                     <div className='button_compare'>Сравнить</div>
+                    <div className='button_compare' onClick={showCompareModal}>Сравнить</div>
+                    <Compare isOpen={isCompareModalOpen} onRequestClose={() => setIsCompareModalOpen(false)} />
+
         </Modal>
     );
 };

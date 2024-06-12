@@ -2,6 +2,9 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 import logging
+
+from starlette.status import HTTP_401_UNAUTHORIZED
+
 from additional_questions import *
 from AI import *
 from pydantic import BaseModel, EmailStr, Field
@@ -137,4 +140,41 @@ async def login_user(user: UserLogin, db: Session = Depends(get_db)):
     data={"sub": db_user.email}, expires_delta=access_token_expires)
 
     return {"access_token": access_token, "token_type": "bearer"}
+
+
+
+class UserInfo(BaseModel):
+    fio: str
+    email: str
+    organization: str
+    inn: str
+    website: str
+    industry: str
+    country: str
+    city: str
+    position: str
+
+    class Config:
+        orm_mode = True
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+
+@app.get("/api/user_info", response_model=UserInfo)
+async def get_user_info(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
+    credentials_exception = HTTPException(
+        status_code=HTTP_401_UNAUTHORIZED,
+        detail="Could not validate credentials",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        email: str = payload.get("sub")
+        if email is None:
+            raise credentials_exception
+    except JWTError:
+        raise credentials_exception
+    user = db.query(User).filter(User.email == email).first()
+    if user is None:
+        raise credentials_exception
+    return user
 

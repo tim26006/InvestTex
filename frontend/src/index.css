@@ -358,8 +358,8 @@
   font-family: Arial;
   font-size: 20px;
   justify-content: center;
-   align-items: center; /* to center the text vertically */
-   margin-left: auto; /* for right alignment */
+  align-items: center; 
+  margin-left: auto; 
 }
 
 .button_compare:hover {
@@ -369,3 +369,83 @@
 }
 
 
+.Button_lc button {
+  width: 100px;
+  height: 42px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-family: Arial;
+  font-size: 15px;
+  background-color: #ef0f33; 
+  background-color: #fff;
+  margin-top: 30%;
+  transition: background-color 1s;
+  left: 20%;
+  top: 20%;
+  position: absolute;
+  cursor: pointer;
+  color: black;
+}
+
+.Button_lc button:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.Button_lc_back button {
+  width: 100px;
+  height: 42px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  font-family: Arial;
+  font-size: 15px;
+  background-color: #ef0f33; 
+  transition: background-color 1s;
+  left: 20%;
+  top: 20%;
+  position: absolute;
+  cursor: pointer;
+  color: #fff;
+}
+
+.Button_lc_back button:hover {
+  background-color: #a00a24;
+}
+
+.User_info {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+  width: 500px;
+  height: 400px;
+  left: 15%;
+  top: 10%;
+  position: absolute;
+}
+
+
+.text_user {
+  margin-left: 10%;
+  margin-top: 5%;
+  font-size: 20px;
+  font-family: Arial;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.text_user a {
+  colot: #59C173;  
+}
+
+.Title_info {
+  position: relative; /* Добавляем относительное позиционирование */
+  left: 30%; /* Смещаем текст на 20px вправо */
+  font-family: Arial;
+  font-size: 30px;
+}
+
+.spin {
+  color: red !important;
+  dotSize: 2000;
+}
