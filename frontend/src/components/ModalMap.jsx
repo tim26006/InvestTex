@@ -167,7 +167,7 @@ const MapModal = ({ isOpen, onRequestClose, mapData, mapDataone, mapDatatwo }) =
                 <>
 
                     <h1 className='title_map'>{placeName}</h1>
-                     <img src={splittedImg[0]}></img>
+
                     <YMaps>
                         <Map
                             className="custom-map"
@@ -401,7 +401,7 @@ const MapModal = ({ isOpen, onRequestClose, mapData, mapDataone, mapDatatwo }) =
 
                     </div>
                     <div className='button_compare' onClick={showCompareModal}>Сравнить</div>
-                    <Compare isOpen={isCompareModalOpen} onRequestClose={() => setIsCompareModalOpen(false)} />
+                    <Compare isOpen={isCompareModalOpen} onRequestClose={() => setIsCompareModalOpen(false)} data1={mapData} data2={mapDataone} data3={mapDatatwo}/>
 
         </Modal>
     );

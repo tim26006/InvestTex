@@ -102,8 +102,8 @@ function InputScreen() {
         setMessages(prevMessages => [...prevMessages, message]);
         
         if (data.last === "True") {
-            const msg = { text: "Спасибо за ответы! Подбираю площадки...", source: "Бот" };
-            setMessages(prevMessages => [...prevMessages, msg]);
+//             const msg = { text: "Спасибо за ответы! Подбираю площадки...", source: "Бот" };
+//             setMessages(prevMessages => [...prevMessages, msg]);
 
             // Немедленно после установки сообщения отправляем запрос на бэкэнд
             axios.post('http://127.0.0.1:8000/api/get-platforms', { withCredentials: true }, {
