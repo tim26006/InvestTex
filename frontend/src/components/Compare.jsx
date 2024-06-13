@@ -7,15 +7,17 @@ import { IoWaterOutline } from "react-icons/io5";
 import { FcElectricity } from "react-icons/fc";
 import { TbLetterS  } from "react-icons/tb";
 import { BsLightbulb } from "react-icons/bs";
-import axios from 'axios'; 
+import axios from 'axios';
 import { LoadingOutlined } from '@ant-design/icons';
-
+import { LuLoader } from "react-icons/lu";
 function Compare ({ isOpen, onRequestClose, data1, data2, data3 })  {
+
 
     const [selectedObject1, setSelectedObject1] = useState(false);
   const [selectedObject2, setSelectedObject2] = useState(false);
   const [selectedObject3, setSelectedObject3] = useState(false);
     const [reportData, setReportData] = useState(null);
+    const [compareData, setCompareData] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
 
@@ -40,7 +42,7 @@ const handleTooltipToggle = () => {
       })
         .then(response => {
           console.log('Data sent successfully', response.data);
-           setReportData(response.data.message);
+           setCompareData(response.data.message);
         })
         .catch(error => {
           console.error('There was an error!', error);
@@ -52,6 +54,33 @@ const handleTooltipToggle = () => {
   }, [isOpen, data1, data2, data3]);
 
 
+
+        const handleReportGeneration = () => {
+        const selectedData = [];
+        if (selectedObject1) selectedData.push(data1);
+        if (selectedObject2) selectedData.push(data2);
+        if (selectedObject3) selectedData.push(data3);
+
+        if (selectedData.length > 0) {
+            setIsLoading(true);
+
+            axios.post('http://127.0.0.1:8000/api/report', selectedData, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(response => {
+                    console.log('Report generated successfully', response.data.report_link);
+                    setReportData(response.data.report_link);
+                })
+                .catch(error => {
+                    console.error('There was an error!', error);
+                })
+                .finally(() => {
+                    setIsLoading(false);
+                });
+        }
+    };
 
     const placeName1 = data1 ? data1["Название площадки"] : "Название";
     const placeName2= data2 ? data2["Название площадки"] : "Название";
@@ -166,9 +195,9 @@ if (type3 === "Помещение") {
   return (
     <>
 
-      <Modal   visible={isOpen} onOk={onRequestClose} width={1600}  height={800} onCancel={onRequestClose} footer={null} closeIcon={null}>
+      <Modal   visible={isOpen} onOk={onRequestClose} width={1600}  height={800}  onCancel={onRequestClose} footer={null} closeIcon={null}>
           <div className="container">
-            
+
                 <div className="object">
                     <div className="titleblock"> <p className="title">{placeName1}</p></div>
                      <img className="img" src={splittedImg1[0]}></img>
@@ -235,30 +264,37 @@ if (type3 === "Помещение") {
                 </div>
         </div>
                <div className='report'>
-                  
-                {/* Если reportData - это не пустая строка, выводим данные */}
-                {reportData && reportData !== '' ? (
-                    <Tooltip
-                      title={
-                        isLoading ? (
-                          <div><Spin indicator={<LoadingOutlined style={{ fontSize: 48, color: 'red' }} spin />} /></div>
-                        ) : (
-                          JSON.stringify(reportData, null, 2)
-                        )
-                      }
-                      trigger="click"
-                      open={isTooltipVisible}
-                      onVisibleChange={handleTooltipToggle}
-                    >
-                    <Button className='REPORT_BUTTON' onClick={handleTooltipToggle}>
-                      {isTooltipVisible ? 'Спрятать' : 'Рекомендация'}
-                    </Button>
-                  </Tooltip>
-                ) : null}
-          </div>
-         <div className="button_report" style={{ backgroundColor: selectedObject1 || selectedObject2 || selectedObject3 ? '#ef0f33' : '#fff' }}>Сформировать отчёт
 
-         </div>
+                            {/* Если reportData - это не пустая строка, выводим данные */}
+                            {compareData && compareData !== '' ? (
+                            <Tooltip
+                            title={
+                            isLoading ? (
+                            <div><Spin indicator={<LoadingOutlined style={{ fontSize: 48, color: 'red' }} spin />} /></div>
+                            ) : (
+                            JSON.stringify(compareData, null, 2)
+                            )
+                            }
+                            trigger="click"
+                            open={isTooltipVisible}
+                            onVisibleChange={handleTooltipToggle}
+                            >
+                            <Button className='REPORT_BUTTON' onClick={handleTooltipToggle}>
+                            {isTooltipVisible ? 'Спрятать' : 'Рекомендация'}
+                            </Button>
+                            </Tooltip>
+                            ) : null}
+                            </div>
+
+
+                      {reportData && (
+              <div className="link">
+                <a className="link_text" href={reportData}>
+                  Скачать
+                </a>
+              </div>
+            )}
+         <div className="button_report" onClick={handleReportGeneration}style={{ backgroundColor: selectedObject1 || selectedObject2 || selectedObject3 ? '#ef0f33' : '#fff' }}>Сформировать отчёт</div>
       </Modal>
 
     </>

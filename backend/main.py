@@ -26,6 +26,7 @@ from prepare_compare import prepare_data_to_compare
 from db import *
 from models import *
 from compare import  compare
+from  report_test import *
 import json
 
 
@@ -190,3 +191,12 @@ async def compare_objects(request: Request):
     compared = compare(str(prepare_data))
     print(compared)
     return {"message": compared}
+
+
+
+@app.post("/api/report")
+async def make_report(request: Request):
+    body = await request.json() #массив json
+    report_data(body)
+    print(len(body))
+    return {"report_link": report_data(body)}

@@ -591,3 +591,24 @@
   box-sizing: border-box; /* Учет отступов и границ */
   overflow-wrap: break-word; /* Дополнительный перенос слов */
 }
+
+.link{
+ text-align:center;
+  color: #fff;
+  border-radius: 15px;
+  padding: 10px 20px;
+  transition: background-color 0.5s;
+  width: 180px;
+  height: 25px;
+  margin-top: 20px;
+  font-family: Arial;
+  font-size: 18px;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+}
+
+.link_text{
+
+
+}
