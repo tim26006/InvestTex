@@ -5,6 +5,9 @@
 - OpenAI GPT2 
 - RuGPT-3
 - GigaChat
+- sqlalchemy
+- PostgreSQL
+- Облако Сloud.ru
 ## Frontend - React
 - Talwind CSS
 - Ant Design 5.0

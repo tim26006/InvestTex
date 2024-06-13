@@ -266,25 +266,26 @@ if (type3 === "Помещение") {
                <div className='report'>
 
                             {/* Если reportData - это не пустая строка, выводим данные */}
-                            {compareData && compareData !== '' ? (
-                            <Tooltip
-                            title={
-                            isLoading ? (
-                            <div><Spin indicator={<LoadingOutlined style={{ fontSize: 48, color: 'red' }} spin />} /></div>
-                            ) : (
-                            JSON.stringify(compareData, null, 2)
-                            )
-                            }
-                            trigger="click"
-                            open={isTooltipVisible}
-                            onVisibleChange={handleTooltipToggle}
-                            >
-                            <Button className='REPORT_BUTTON' onClick={handleTooltipToggle}>
-                            {isTooltipVisible ? 'Спрятать' : 'Рекомендация'}
-                            </Button>
-                            </Tooltip>
-                            ) : null}
-                            </div>
+                             {/* Если reportData - это не пустая строка, выводим данные */}
+  {compareData && compareData !== '' ? (
+    <Tooltip
+      title={
+        isLoading ? (
+          <div><Spin indicator={<LoadingOutlined style={{ fontSize: 48, color:"red" }} spin />} /></div>
+        ) : (
+          JSON.stringify(compareData, null, 2)
+        )
+      }
+      trigger="click"
+      open={isTooltipVisible}
+      onVisibleChange={handleTooltipToggle}
+    >
+      <Button className='REPORT_BUTTON' onClick={handleTooltipToggle}>
+        {isLoading ? 'Загрузка...' : (isTooltipVisible ? 'Спрятать' : 'Рекомендация')}
+      </Button>
+    </Tooltip>
+  ) : null}
+</div>
 
 
                       {reportData && (

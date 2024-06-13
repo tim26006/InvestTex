@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
-import { YMaps, Map, Placemark } from '@pbe/react-yandex-maps';
+import { YMaps, Map, Placemark, Panorama } from '@pbe/react-yandex-maps';
 import { Pagination, Button } from "antd";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { BiHomeAlt2 } from "react-icons/bi";
@@ -192,12 +192,13 @@ const MapModal = ({ isOpen, onRequestClose, mapData, mapDataone, mapDatatwo }) =
                                 />
 
                             )}
+                            
                         </Map>
+                       
                     </YMaps>
-                    <a href={`https://yandex.ru/maps/?panorama[point]=${arr_coordinates[0]},${arr_coordinates[1]}`} target="_blank" rel="noopener noreferrer">
-                        <Button className='button_check_panorama' type="primary">Посмотреть панораму</Button>
 
-                    </a>
+                    
+
 
                     <p className="descriptionMap" style={{ fontFamily: 'Arial', fontSize: '20px' }}>
                         <li className="vertical-list-item">
@@ -270,9 +271,7 @@ const MapModal = ({ isOpen, onRequestClose, mapData, mapDataone, mapDatatwo }) =
                             )}
                         </Map>
                     </YMaps>
-                    <a href={`https://yandex.ru/maps/?panorama[point]=${arr_coordinates1[0]},${arr_coordinates1[1]}`} target="_blank" rel="noopener noreferrer">
-                        <Button className='button_check_panorama' type="primary">Посмотреть панораму</Button>
-                    </a>
+                    
 
                     <p className="descriptionMap" style={{ fontFamily: 'Arial', fontSize: '20px' }}>
                         <li className="vertical-list-item">
@@ -345,9 +344,7 @@ const MapModal = ({ isOpen, onRequestClose, mapData, mapDataone, mapDatatwo }) =
                             )}
                         </Map>
                     </YMaps>
-                    <a href={`https://yandex.ru/maps/?panorama[point]=${arr_coordinates2[0]},${arr_coordinates2[1]}`} target="_blank" rel="noopener noreferrer">
-                        <Button className='button_check_panorama' type="primary">Посмотреть панораму</Button>
-                    </a>
+                   
 
                     <p className="descriptionMap" style={{ fontFamily: 'Arial', fontSize: '20px' }}>
                         <li className="vertical-list-item">

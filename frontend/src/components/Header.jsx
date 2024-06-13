@@ -42,19 +42,11 @@ function Header() {
   }
 
   return (
-    <Card
-  extra={
-    <a href="/personal" className="custom-link">
-      Личный кабинет
-    </a>
-  }
-  style={{
-    width: 300,
-    left: 1600,
-  }}
->
-  {userInfo && <div className='text_user'>{userInfo.fio}</div>}
-</Card>
+
+<a href="/personal" className="custom-link ">
+  Личный кабинет
+</a>
+
   );
 }
 
