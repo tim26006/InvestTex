@@ -4,12 +4,15 @@ from jose import jwt
 from jose.exceptions import JWTError
 from passlib.context import CryptContext
 from datetime import datetime, timedelta
-from models import User
-Base.metadata.create_all(bind=engine)
+from models import User, Report
 
+from fastapi.security import OAuth2PasswordBearer
+from fastapi import FastAPI, Depends, HTTPException, status
 # Password hashing
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+Base.metadata.create_all(bind=engine)
+from models import  TokenData
 # JWT settings
 SECRET_KEY = "your-secret-key"
 ALGORITHM = "HS256"
@@ -48,3 +51,4 @@ def authenticate_user(db: Session, email: str, password: str):
     if user and verify_password(password, user.hashed_password):
         return user
     return False
+

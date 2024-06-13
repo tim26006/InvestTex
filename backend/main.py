@@ -28,8 +28,6 @@ from models import *
 from compare import  compare
 from  report_test import *
 from hepls  import  help
-
-
 import json
 
 
@@ -207,4 +205,6 @@ async def make_report(request: Request):
 
 
 
-
+@app.post("/api/save_report")
+async def save_report():
+    pass

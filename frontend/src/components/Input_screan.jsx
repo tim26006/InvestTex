@@ -142,6 +142,7 @@ function InputScreen() {
     };
 
     return (
+
         <div className='input'>
             <div className="messages">
                 {messages.length === 0 ? (

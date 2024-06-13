@@ -73,9 +73,14 @@ const handleTooltipToggle = () => {
       .catch(error => console.error('Error fetching user info:', error));
     }
   }, [token]);
-  
+
+        const saveReport =() =>{
 
 
+
+
+
+            }
 
         const handleReportGeneration = () => {
         const selectedData = [];
@@ -319,7 +324,7 @@ if (type3 === "Помещение") {
   )}
 
   {token && reportData &&(
-    <div className="link">
+    <div className="link" onClick={saveReport}>
       <a className="link_text" href={reportData}>
         Сохранить в ЛК
       </a>

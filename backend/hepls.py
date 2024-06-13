@@ -37,4 +37,7 @@ def help(query:str):
             # Конвертация словаря в JSON и добавление в результат
             json_row = json.dumps(dict_row, ensure_ascii=False)
             lgots.append(json_row)
-    return lgots
+    return lgots[4]
+
+
+print( help("Я занимаюсь животноводством. Какие льготы мне доступны?"))

@@ -20,6 +20,14 @@ class User(Base):
     position = Column(String)
     hashed_password = Column(String)
 
+class Report(Base):
+    __tablename__ = "reports"
+    id = Column(Integer, primary_key=True, index=True)
+    email = Column(String, index=True)
+    date = Column(String)
+    link = Column(String)
+
+
 class UserRegistration(BaseModel):
     fio: str
     email: EmailStr
@@ -34,7 +42,8 @@ class UserRegistration(BaseModel):
 
 
 class Report(BaseModel):
-    title: str
+    email: EmailStr
+    date:str
     link: str;
 
 
