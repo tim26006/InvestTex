@@ -287,8 +287,6 @@ if (type3 === "Помещение") {
         </div>
                <div className='report'>
 
-                            {/* Если reportData - это не пустая строка, выводим данные */}
-                             {/* Если reportData - это не пустая строка, выводим данные */}
   {compareData && compareData !== '' ? (
     <Tooltip
       title={
@@ -312,7 +310,7 @@ if (type3 === "Помещение") {
 
 
 <div>
-  {!token && (
+  {!token && reportData &&(
     <div className="link">
       <a className="link_text" href={reportData}>
         Скачать
@@ -320,10 +318,10 @@ if (type3 === "Помещение") {
     </div>
   )}
 
-  {token && (
+  {token && reportData &&(
     <div className="link">
       <a className="link_text" href={reportData}>
-        Сохранить в личный кабинет
+        Сохранить в ЛК
       </a>
     </div>
   )}

@@ -27,6 +27,9 @@ from db import *
 from models import *
 from compare import  compare
 from  report_test import *
+from hepls  import  help
+
+
 import json
 
 
@@ -98,7 +101,8 @@ def read_root(message:Message):
             blyat = features[2]
             return {"response": "Нашел несколько площадок для Вас", "features":aye, "answer2":suka, "answer3":blyat, "otvet":True}
     else:
-        return {"response": "Данный запрос про льготы и меры поддержки", 'lgots':1}
+        lgots = help(str(message))
+        return {"response": lgots, 'lgots':1}
 
 # Routes
 @app.post("/api/register", response_model=dict)
