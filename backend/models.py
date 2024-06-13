@@ -33,6 +33,11 @@ class UserRegistration(BaseModel):
     password: str
 
 
+class Report(BaseModel):
+    title: str
+    link: str;
+
+
 
 class UserLogin(BaseModel):
     email: EmailStr

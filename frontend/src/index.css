@@ -594,10 +594,11 @@
 
 .link{
  text-align:center;
-  color: #fff;
+
   border-radius: 15px;
   padding: 10px 20px;
   transition: background-color 0.5s;
+  background-color: #ef0f33;
   width: 180px;
   height: 25px;
   margin-top: 20px;
@@ -607,6 +608,25 @@
   align-items: center;
   margin-left: auto;
 }
+
+.link_text{
+    color:white;
+}
+
+
+.link:hover{
+    background-color: #a00a24 !important;
+  cursor:pointer;
+
+}
+
+
+
+
+
+
+
+
 
 .custom-link {
   position: absolute;

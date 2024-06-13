@@ -10,9 +10,12 @@ import { BsLightbulb } from "react-icons/bs";
 import axios from 'axios';
 import { LoadingOutlined } from '@ant-design/icons';
 import { LuLoader } from "react-icons/lu";
+
+
 function Compare ({ isOpen, onRequestClose, data1, data2, data3 })  {
 
-
+    const token = sessionStorage.getItem('access_token');
+    const [selectToken, setSelectToken] = useState(null);
     const [selectedObject1, setSelectedObject1] = useState(false);
   const [selectedObject2, setSelectedObject2] = useState(false);
   const [selectedObject3, setSelectedObject3] = useState(false);
@@ -287,15 +290,25 @@ if (type3 === "Помещение") {
   ) : null}
 </div>
 
+            <div className="report_block">
+                                  {reportData && !token (
+                          <div className="link">
+                            <a className="link_text" href={reportData}>
+                              Скачать
+                            </a>
+                          </div>
+                        )}
 
-                      {reportData && (
-              <div className="link">
-                <a className="link_text" href={reportData}>
-                  Скачать
-                </a>
-              </div>
-            )}
-         <div className="button_report" onClick={handleReportGeneration}style={{ backgroundColor: selectedObject1 || selectedObject2 || selectedObject3 ? '#ef0f33' : '#fff' }}>Сформировать отчёт</div>
+                        {reportData && token (
+                          <div className="link">
+                            <a className="link_text" href={reportData}>
+                                Сохранить в личный кабинет
+                            </a>
+                          </div>
+                        )}
+                     <div className="button_report" onClick={handleReportGeneration}style={{ backgroundColor: selectedObject1 || selectedObject2 || selectedObject3 ? '#ef0f33' : '#fff' }}>Сформировать отчёт</div>
+            </div>
+
       </Modal>
 
     </>
