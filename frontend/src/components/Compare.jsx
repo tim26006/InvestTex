@@ -6,6 +6,7 @@ import { FaRubleSign, FaExternalLinkAlt, FaRegHandshake, FaFireAlt } from "react
 import { IoWaterOutline } from "react-icons/io5";
 import { FcElectricity } from "react-icons/fc";
 import { TbLetterS  } from "react-icons/tb";
+import { BsLightbulb } from "react-icons/bs";
 import axios from 'axios'; // Импортируем axios
 
 function Compare ({ isOpen, onRequestClose, data1, data2, data3 })  {
@@ -32,7 +33,7 @@ function Compare ({ isOpen, onRequestClose, data1, data2, data3 })  {
       })
         .then(response => {
           console.log('Data sent successfully', response.data);
-           setReportData(response.data);
+           setReportData(response.data.message);
         })
         .catch(error => {
           console.error('There was an error!', error);
@@ -225,12 +226,16 @@ if (type3 === "Помещение") {
                     </div>
                 </div>
         </div>
-        <div className='report'>
-          {/* Проверка isLoading */}
-          {isLoading && <div>Загрузка...</div>}
-          {/* Если reportData - это не пустая строка, выводим данные */}
-          {reportData && reportData !== '' && <pre>{JSON.stringify(reportData, null, 2)}</pre>}
-        </div>
+               <div className='report'>
+                   <BsLightbulb size={30} />
+            {/* Проверка isLoading */}
+            {isLoading && <div>Загрузка...</div>}
+            {/* Если reportData - это не пустая строка, выводим данные */}
+            {reportData && reportData !== '' &&
+
+              <pre className="report-data">{JSON.stringify(reportData, null, 2)}</pre>
+            }
+          </div>
          <div className="button_report" style={{ backgroundColor: selectedObject1 || selectedObject2 || selectedObject3 ? '#ef0f33' : '#fff' }}>Сформировать отчёт</div>
       </Modal>
 
