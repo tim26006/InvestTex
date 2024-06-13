@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, Button } from 'antd';
+import { Modal, Button, Tooltip, Spin } from 'antd';
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { BiHomeAlt2 } from "react-icons/bi";
 import { FaRubleSign, FaExternalLinkAlt, FaRegHandshake, FaFireAlt } from "react-icons/fa";
@@ -7,7 +7,8 @@ import { IoWaterOutline } from "react-icons/io5";
 import { FcElectricity } from "react-icons/fc";
 import { TbLetterS  } from "react-icons/tb";
 import { BsLightbulb } from "react-icons/bs";
-import axios from 'axios'; // Импортируем axios
+import axios from 'axios'; 
+import { LoadingOutlined } from '@ant-design/icons';
 
 function Compare ({ isOpen, onRequestClose, data1, data2, data3 })  {
 
@@ -16,6 +17,12 @@ function Compare ({ isOpen, onRequestClose, data1, data2, data3 })  {
   const [selectedObject3, setSelectedObject3] = useState(false);
     const [reportData, setReportData] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+
+
+    const [isTooltipVisible, setIsTooltipVisible] = useState(false);
+const handleTooltipToggle = () => {
+  setIsTooltipVisible(!isTooltipVisible);
+};
 
   useEffect(() => {
     if (isOpen) {
@@ -161,6 +168,7 @@ if (type3 === "Помещение") {
 
       <Modal   visible={isOpen} onOk={onRequestClose} width={1600}  height={800} onCancel={onRequestClose} footer={null} closeIcon={null}>
           <div className="container">
+            
                 <div className="object">
                     <div className="titleblock"> <p className="title">{placeName1}</p></div>
                      <img className="img" src={splittedImg1[0]}></img>
@@ -227,16 +235,30 @@ if (type3 === "Помещение") {
                 </div>
         </div>
                <div className='report'>
-                   <BsLightbulb size={30} />
-            {/* Проверка isLoading */}
-            {isLoading && <div>Загрузка...</div>}
-            {/* Если reportData - это не пустая строка, выводим данные */}
-            {reportData && reportData !== '' &&
-
-              <pre className="report-data">{JSON.stringify(reportData, null, 2)}</pre>
-            }
+                  
+                {/* Если reportData - это не пустая строка, выводим данные */}
+                {reportData && reportData !== '' ? (
+                    <Tooltip
+                      title={
+                        isLoading ? (
+                          <div><Spin indicator={<LoadingOutlined style={{ fontSize: 48, color: 'red' }} spin />} /></div>
+                        ) : (
+                          JSON.stringify(reportData, null, 2)
+                        )
+                      }
+                      trigger="click"
+                      open={isTooltipVisible}
+                      onVisibleChange={handleTooltipToggle}
+                    >
+                    <Button className='REPORT_BUTTON' onClick={handleTooltipToggle}>
+                      {isTooltipVisible ? 'Спрятать' : 'Рекомендация'}
+                    </Button>
+                  </Tooltip>
+                ) : null}
           </div>
-         <div className="button_report" style={{ backgroundColor: selectedObject1 || selectedObject2 || selectedObject3 ? '#ef0f33' : '#fff' }}>Сформировать отчёт</div>
+         <div className="button_report" style={{ backgroundColor: selectedObject1 || selectedObject2 || selectedObject3 ? '#ef0f33' : '#fff' }}>Сформировать отчёт
+
+         </div>
       </Modal>
 
     </>

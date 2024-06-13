@@ -524,8 +524,7 @@
 
 
 .button_report{
-     text-align:center;
-
+    text-align:center;
   color: #fff;
   border-radius: 15px;
   padding: 10px 20px;
@@ -541,9 +540,32 @@
 }
 
 .button_report:hover{
-    background-color: #a00a24 !important;
+  background-color: #a00a24 !important;
   cursor:pointer;
 }
+
+
+.REPORT_BUTTON {
+  width: 180px;
+  height: 50px;
+  font-size: 18px;
+  font-family: Arial;
+  color: #fff;
+  background-color: #ef0f33;
+  border-radius: 15px;
+  padding: 10px 20px;
+  transition: background-color 0.5s;
+  left: 47%;
+}
+
+.REPORT_BUTTON:hover {
+  background-color: #a00a24 !important;
+}
+
+.REPORT_BUTTON:focus {
+  color: #fff !important;
+}
+
 
 
 .report {

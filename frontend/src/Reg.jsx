@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { Card, Space, Input, Button } from 'antd';
 import axios from 'axios';
 import ReCAPTCHA from "react-google-recaptcha";
+import { Select } from 'antd';
+const { Option } = Select;
+
 
 const Reg = () => {
   const [fio, setFio] = useState('');
@@ -15,6 +18,10 @@ const Reg = () => {
   const [position, setPosition] = useState('');
   const [password, setPassword] = useState('');
   const [isCaptchaSuccessful, setIsCaptchaSuccess] = React.useState(false)
+
+  const handleChangeIndustry = (value) => {
+    setIndustry(value);
+  };
 
   function onChange(value) {
     setIsCaptchaSuccess(true)
@@ -39,7 +46,6 @@ const Reg = () => {
         console.log(data)
       const response = await axios.post('http://localhost:8000/api/register', data);
       console.log(response.data);
-      Navigate('/personal');
       alert("успешно");
     } catch (error) {
       console.error('Ошибка при выполнении запроса:', error);
@@ -66,7 +72,14 @@ const Reg = () => {
           <Input placeholder="Наименование организации" value={organization} onChange={e => setOrganization(e.target.value)} />
           <Input placeholder="ИНН" value={inn} onChange={e => setInn(e.target.value)} />
           <Input placeholder="Веб-сайт организации" value={website} onChange={e => setWebsite(e.target.value)} />
-          <Input placeholder="Отрасль деятельности" value={industry} onChange={e => setIndustry(e.target.value)} />
+          
+          <Select placeholder="Отрасль деятельности" value={industry} onChange={handleChangeIndustry} style={{ width: '100%' }}>
+            <Option value="IT">IT</Option>
+            <Option value="Финансы">Финансы</Option>
+            <Option value="Медицина">Медицина</Option>
+            
+          </Select>
+
           <Input placeholder="Страна" value={country} onChange={e => setCountry(e.target.value)} />
           <Input placeholder="Город" value={city} onChange={e => setCity(e.target.value)} />
           <Input placeholder="Должность" value={position} onChange={e => setPosition(e.target.value)} />

@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Input, Card, Space, Alert } from "antd";
+import { Input, Card, Space, Alert, Spin } from "antd";
 import axios from 'axios';
 import Modal from 'react-modal';
 import { IoMdHelp } from "react-icons/io";
 import { FiSend } from "react-icons/fi";
 import MapModal from './ModalMap';
-
 
 function InputScreen() {
     const [inputValue, setInputValue] = useState('');
@@ -19,6 +18,7 @@ function InputScreen() {
     const [mapData1, setMapData1] = useState(null);
     const [mapData2, setMapData2] = useState(null);
     const [isDelayMessageSent, setIsDelayMessageSent] = useState(false);
+    const [isLoading, setIsLoading] = useState(false); // Состояние для отслеживания загрузки
 
     const messagesEndRef = useRef(null);
 
@@ -63,6 +63,8 @@ function InputScreen() {
         }
         setError(false);
 
+        setIsLoading(true); // Устанавливаем состояние загрузки перед отправкой запроса
+
         const newMessage = { text: inputValue, source: "Вы" };
         setMessages([...messages, newMessage]);
 
@@ -78,6 +80,7 @@ function InputScreen() {
             }
         })
         .then(response => {
+            setIsLoading(false); // Сбрасываем состояние загрузки после получения ответа
             const responseData = response.data;
 
             if (Array.isArray(responseData)) {
@@ -89,6 +92,7 @@ function InputScreen() {
             }
         })
         .catch(error => {
+            setIsLoading(false); // Сбрасываем состояние загрузки в случае ошибки
             console.error(error);
         });
 
@@ -102,10 +106,6 @@ function InputScreen() {
         setMessages(prevMessages => [...prevMessages, message]);
         
         if (data.last === "True") {
-//             const msg = { text: "Спасибо за ответы! Подбираю площадки...", source: "Бот" };
-//             setMessages(prevMessages => [...prevMessages, msg]);
-
-            // Немедленно после установки сообщения отправляем запрос на бэкэнд
             axios.post('http://127.0.0.1:8000/api/get-platforms', { withCredentials: true }, {
                 headers: {
                     'Content-Type': 'application/json'
@@ -140,11 +140,10 @@ function InputScreen() {
             console.error("Error parsing JSON data:", error);
         }
     };
-    
+
     return (
         <div className='input'>
             <div className="messages">
-                <div className='map'></div>
                 {messages.length === 0 ? (
                     <div className="welcome-message">Здравствуйте! Начните чат, введя сообщение ниже.</div>
                 ) : (
@@ -155,10 +154,10 @@ function InputScreen() {
                                 {message.text}
                             </p>
                             {message.text === "Нашел несколько площадок для Вас" && (
-                            <div className='button_check_offer'>
-                                <button onClick={() => setIsMapModalOpen1(true)}>Посмотреть</button>
-                            </div>
-                        )}
+                                <div className='button_check_offer'>
+                                    <button onClick={() => setIsMapModalOpen1(true)}>Посмотреть</button>
+                                </div>
+                            )}
                         </Card>
                     ))
                 )}
@@ -198,7 +197,6 @@ function InputScreen() {
 
             <MapModal isOpen={isMapModalOpen1} onRequestClose={() => setIsMapModalOpen1(false)} mapData={mapData} mapDataone={mapData1} mapDatatwo={mapData2}/>
 
-
             {error && (
                 <div className="centered-error">
                     <Space direction="vertical" style={{ width: '100%' }}>
@@ -206,6 +204,11 @@ function InputScreen() {
                     </Space>
                 </div>
             )}
+
+            {/* Спиннер на весь экран во время загрузки */}
+            <Spin spinning={isLoading} size="large" tip="Отправка сообщения...">
+                {/* Весь ваш текущий JSX здесь */}
+            </Spin>
         </div>
     );
 }
