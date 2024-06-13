@@ -1,36 +1,20 @@
-import React, { useEffect } from 'react';
+// ProtectedRoute.jsx
+import React from 'react';
 import { Navigate } from 'react-router-dom';
 import PersonalArea from './PersonalArea';
 
 function ProtectedRoute() {
-  useEffect(() => {
-    const token = localStorage.getItem('access_token');
-    console.log('Token:', token);
+  const token = sessionStorage.getItem('access_token'); // Check for 'access_token'
 
-    const handleBeforeUnload = (event) => {
+  // Log the token to ensure it's retrieved correctly
+  console.log('Token:', token);
 
-      if (!event.returnValue) {
-        console.log('Clearing token on window close...');
-        localStorage.removeItem('access_token');
-      }
-    };
-
-
-    window.addEventListener('beforeunload', handleBeforeUnload);
-
-
-    return () => {
-      console.log('Removing beforeunload event listener...');
-      window.removeEventListener('beforeunload', handleBeforeUnload);
-    };
-  }, []);
-
-  const token = localStorage.getItem('access_token');
-
+  // If token doesn't exist, redirect the user to the login page
   if (!token) {
     return <Navigate to="/login" />;
   }
 
+  // If token exists, show the PersonalArea component
   return <PersonalArea />;
 }
 

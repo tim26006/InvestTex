@@ -6,7 +6,7 @@ function Header() {
   const [count, setCount] = useState(0);
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState(null);
-  const token = localStorage.getItem('access_token');
+  const token = sessionStorage.getItem('access_token');
 
   useEffect(() => {
     if (token) {

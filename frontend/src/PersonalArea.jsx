@@ -25,7 +25,7 @@ const items = [
 
 const PersonalArea = () => {
   const [userInfo, setUserInfo] = useState(null);
-  const token = localStorage.getItem('access_token');
+  const token = sessionStorage.getItem('access_token');
   const navigate = useNavigate();
   const { token: { colorBgContainer, borderRadiusLG } } = theme.useToken();
   const [selectedItem, setSelectedItem] = useState(selectedItemInitial);
@@ -58,7 +58,7 @@ const PersonalArea = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('access_token');
+    sessionStorage.removeItem('access_token');
     navigate("/login");
   };
 

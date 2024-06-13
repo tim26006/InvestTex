@@ -24,7 +24,7 @@ function Login() {
       setIsLoading(true);
       const response = await axios.post('http://localhost:8000/api/login', { email, password });
       const { access_token } = response.data; // Extract access_token from response
-      localStorage.setItem('access_token', access_token); // Store access_token in localStorage
+      sessionStorage.setItem('access_token', access_token); // Store access_token in localStorage
       setIsAuthenticated(true);
       navigate('/personal');
     } catch (error) {
