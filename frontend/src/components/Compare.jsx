@@ -55,6 +55,25 @@ const handleTooltipToggle = () => {
             });
     }
   }, [isOpen, data1, data2, data3]);
+  useEffect(() => {
+    if (token) {
+      fetch('http://localhost:8000/api/user_info', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => setUserInfo(data))
+      .catch(error => console.error('Error fetching user info:', error));
+    }
+  }, [token]);
+  
 
 
 
@@ -290,22 +309,28 @@ if (type3 === "Помещение") {
   ) : null}
 </div>
 
-            <div className="report_block">
-                                  {reportData && !token (
-                          <div className="link">
-                            <a className="link_text" href={reportData}>
-                              Скачать
-                            </a>
-                          </div>
-                        )}
 
-                        {reportData && token (
-                          <div className="link">
-                            <a className="link_text" href={reportData}>
-                                Сохранить в личный кабинет
-                            </a>
-                          </div>
-                        )}
+
+<div>
+  {!token && (
+    <div className="link">
+      <a className="link_text" href={reportData}>
+        Скачать
+      </a>
+    </div>
+  )}
+
+  {token && (
+    <div className="link">
+      <a className="link_text" href={reportData}>
+        Сохранить в личный кабинет
+      </a>
+    </div>
+  )}
+</div>
+
+
+            <div className="report_block">
                      <div className="button_report" onClick={handleReportGeneration}style={{ backgroundColor: selectedObject1 || selectedObject2 || selectedObject3 ? '#ef0f33' : '#fff' }}>Сформировать отчёт</div>
             </div>
 
