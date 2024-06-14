@@ -3,6 +3,8 @@ import { Modal } from 'antd';
 import './ModalLgots.css';
 import { Button } from 'antd';
 import { FaCity } from "react-icons/fa6";
+import { FaRegBookmark } from "react-icons/fa6";
+import { MdDriveFileRenameOutline } from "react-icons/md";
 
 
 
@@ -25,9 +27,9 @@ function ModalLgots({ isOpen, onRequestClose, data }) {
       className="custom-modal" // Добавляем кастомный класс
     >
       <div className='TEXT_LGOTS'>
-        <div className='title_Modallog'><FaCity size={30} color={'#ef0f33'}/> {reg}</div>
-        <div>Название: {name}.</div>
-        <div>Суть: {sytb}.</div>
+        <div className='title_Modallog'><FaCity size={30} color={'#ef0f33'} className="icon"/> {reg}</div>
+        <div className='name_lgot'><MdDriveFileRenameOutline size={30} color={'#ef0f33'}/> {name}</div>
+        <div><FaRegBookmark size={25} color={'#ef0f33'}/> {sytb}.</div>
         <Button 
             type="primary" 
             href={URL} 

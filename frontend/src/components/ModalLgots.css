@@ -38,6 +38,18 @@
   }
 
 
-.title_Modallog {
-    right: 10%;
+  .title_Modallog {
+    display: flex;
+    justify-content: center; /* Центрирование по горизонтали */
+    align-items: center; /* Центрирование по вертикали */
+    font-size: 24px; /* Размер шрифта для заголовка */
+    margin-bottom: 20px; /* Отступ снизу для заголовка */
+  }
+
+  .title_Modallog .icon {
+    margin-right: 10px; /* Отступ справа между иконкой и текстом */
+  }
+
+.name_lgot {
+    margin-bottom: 20px;
 }
