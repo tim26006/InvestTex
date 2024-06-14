@@ -105,26 +105,6 @@ const PersonalArea = () => {
                 <Spin indicator={antIcon} />
               </div>
             )}
-            <div className='User_active'>
-              <div className='statistic-container'>
-                <Statistic title="Запросов" value={0} />
-              </div>
-              <div className='statistic-container'>
-                <Statistic title="Отчетов" value={0} />
-              </div>
-              <div className='statistic-container'>
-                <Statistic title="Сообщений" value={0} />
-              </div>
-              <div className='statistic-container'>
-                <Statistic title="Просмотров" value={0} />
-              </div>
-              <div className='statistic-container'>
-                <Statistic title="Лайков" value={0} />
-              </div>
-              <div className='statistic-container'>
-                <Statistic title="Комментариев" value={0} />
-              </div>
-            </div>
           </div>
         );
 

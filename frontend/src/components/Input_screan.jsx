@@ -6,6 +6,9 @@ import { IoMdHelp } from "react-icons/io";
 import { FiSend } from "react-icons/fi";
 import MapModal from './ModalMap';
 import ModalLgots from './ModalLgots';
+import { LoadingOutlined } from '@ant-design/icons';
+    const antIcon = <LoadingOutlined style={{ fontSize: 50, color: 'red' }} spin />;
+
 
 function InputScreen() {
     const [inputValue, setInputValue] = useState('');
@@ -210,7 +213,7 @@ function InputScreen() {
                 </div>
             )}
 
-            <Spin spinning={isLoading} size="large" tip="Отправка сообщения...">
+            <Spin indicator={antIcon} spinning={isLoading} size="large" tip="Отправка сообщения...">
                 {/* Здесь может быть дополнительный JSX, который отображается во время загрузки */}
             </Spin>
         </div>

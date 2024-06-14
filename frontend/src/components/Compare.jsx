@@ -12,6 +12,8 @@ import { LoadingOutlined } from '@ant-design/icons';
 import { LuLoader } from "react-icons/lu";
 
 
+
+
 function Compare ({ isOpen, onRequestClose, data1, data2, data3 })  {
 
     const token = sessionStorage.getItem('access_token');
@@ -357,8 +359,11 @@ if (type3 === "Помещение") {
 
 
             <div className="report_block">
+                    <Tooltip  placement="leftTop" title="В отчете будет информация про выбранные объекты, а также список мер поддержки!" visible={selectedObject1 || selectedObject2 || selectedObject3}>
                      <div className="button_report" onClick={handleReportGeneration}style={{ backgroundColor: selectedObject1 || selectedObject2 || selectedObject3 ? '#ef0f33' : '#fff' }}>Сформировать отчёт</div>
+                      </Tooltip>
             </div>
+
 
       </Modal>
 

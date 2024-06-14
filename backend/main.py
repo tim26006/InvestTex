@@ -275,3 +275,4 @@ async def get_reports(token: str = Depends(oauth2_scheme), db: Session = Depends
     reports = db.query(Report).filter(Report.email == email).all()
     report_dicts = [ReportResponseSchema.from_orm(report).dict() for report in reports]
     return report_dicts
+
