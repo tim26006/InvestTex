@@ -1,0 +1,43 @@
+.custom-modal .ant-modal-content {
+    height: 100%; 
+    overflow-y: auto; 
+}
+  
+
+.custom-modal .ant-modal-body {
+    max-height: 100%; 
+}
+
+
+.TEXT_LGOTS {
+    font-family: Arial;
+    font-size: 18px;
+}
+
+
+.custom-button {
+    display: block; 
+    margin-top: 20px; 
+    text-align: center;
+    background-color: #ef0f33 !important; 
+    color: white; 
+    padding: 10px 20px; 
+    text-decoration: none; 
+    border-radius: 20px; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    transition: background-color 1s ease; 
+    width: 200px; 
+    height: 50px; 
+    line-height: 30px; 
+    font-size: 16px; 
+    left: 30%;
+  }
+  
+  .custom-button:hover {
+    background-color: #a00a24  !important; 
+  }
+
+
+.title_Modallog {
+    right: 10%;
+}
