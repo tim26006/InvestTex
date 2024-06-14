@@ -1,15 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { UploadOutlined, UserOutlined } from '@ant-design/icons';
-import { Layout, Menu, theme, Card, Button } from 'antd';
-import { Navigate } from 'react-router-dom'; // Use Navigate instead of Redirect
-import { useNavigate } from 'react-router-dom';
-import { Spin } from 'antd';
-import { LoadingOutlined } from '@ant-design/icons';
-import { Col, Row, Statistic } from 'antd';
+import { UploadOutlined, UserOutlined, LoadingOutlined } from '@ant-design/icons';
+import { Layout, Menu, theme, Card, Button, Spin, Statistic } from 'antd';
+import { Navigate, useNavigate } from 'react-router-dom';
 import CountUp from 'react-countup';
-
-
-
+import axios from 'axios';
 const formatter = (value) => <CountUp end={value} separator="," />;
 const antIcon = <LoadingOutlined style={{ fontSize: 100, color: 'red' }} spin />;
 const { Content, Sider } = Layout;
@@ -17,18 +11,20 @@ const selectedItemInitial = '1';
 const items = [
   {
     key: '1',
-    icon: React.createElement(UserOutlined, { style: { color: 'black' } }),
+    icon: <UserOutlined style={{ color: 'black' }} />,
     label: 'Профиль',
   },
   {
     key: '2',
-    icon: React.createElement(UploadOutlined , { style: { color: 'black' } }),
+    icon: <UploadOutlined style={{ color: 'black' }} />,
     label: 'Отчеты',
   },
 ];
 
 const PersonalArea = () => {
   const [userInfo, setUserInfo] = useState(null);
+  const [reports, setReports] = useState([]);
+  const [loading, setLoading] = useState(false);
   const token = sessionStorage.getItem('access_token');
   const navigate = useNavigate();
   const { token: { colorBgContainer, borderRadiusLG } } = theme.useToken();
@@ -53,6 +49,25 @@ const PersonalArea = () => {
     }
   }, [token]);
 
+  useEffect(() => {
+    if (selectedItem === '2') {
+      setLoading(true);
+      axios.get('http://localhost:8000/api/get_reports', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      .then(response => {
+        setReports(response.data);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('Error fetching reports:', error);
+        setLoading(false);
+      });
+    }
+  }, [selectedItem, token]);
+
   if (!token) {
     return <Navigate to="/login" />;
   }
@@ -66,70 +81,72 @@ const PersonalArea = () => {
     navigate("/login");
   };
 
-  const handleChat = () => (
-    navigate("/")
-  )
+  const handleChat = () => {
+    navigate("/");
+  };
 
   const renderMessage = () => {
     switch (selectedItem) {
       case '1':
-        return <div>
-        {userInfo ? (
-          <div className='User_info'>
-            <h1 className='Title_info'>Ваши данные</h1>
-            <div className='text_user'>ФИО: {userInfo.fio}</div>
-            <div className='text_user'>Email: {userInfo.email}</div> 
-            <div className='text_user'>Организация: {userInfo.organization}</div> 
-            <div className='text_user'>Веб сайт: <a href={userInfo.website}>Перейти</a></div>
-            <div className='text_user'>Страна: {userInfo.country}</div>
-            <div className='text_user'>Город: {userInfo.city}</div>
+        return (
+          <div>
+            {userInfo ? (
+              <div className='User_info'>
+                <h1 className='Title_info'>Ваши данные</h1>
+                <div className='text_user'>ФИО: {userInfo.fio}</div>
+                <div className='text_user'>Email: {userInfo.email}</div>
+                <div className='text_user'>Организация: {userInfo.organization}</div>
+                <div className='text_user'>Веб сайт: <a href={userInfo.website}>Перейти</a></div>
+                <div className='text_user'>Страна: {userInfo.country}</div>
+                <div className='text_user'>Город: {userInfo.city}</div>
+              </div>
+            ) : (
+              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+                <Spin indicator={antIcon} />
+              </div>
+            )}
+            <div className='User_active'>
+              <div className='statistic-container'>
+                <Statistic title="Запросов" value={0} />
+              </div>
+              <div className='statistic-container'>
+                <Statistic title="Отчетов" value={0} />
+              </div>
+              <div className='statistic-container'>
+                <Statistic title="Сообщений" value={0} />
+              </div>
+              <div className='statistic-container'>
+                <Statistic title="Просмотров" value={0} />
+              </div>
+              <div className='statistic-container'>
+                <Statistic title="Лайков" value={0} />
+              </div>
+              <div className='statistic-container'>
+                <Statistic title="Комментариев" value={0} />
+              </div>
+            </div>
           </div>
-        ) : (
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-            <Spin indicator={antIcon} />
-          </div>
-        )}
-        <div className='User_active'>
-        
-
-      <div className='statistic-container'>
-        <Statistic title="Запросов" value={0} />
-      </div>
-      <div className='statistic-container'>
-        <Statistic title="Отчетов" value={0} />
-      </div>
-      <div className='statistic-container'>
-        <Statistic title="Сообщений" value={0} />
-      </div>
-      <div className='statistic-container'>
-        <Statistic title="Просмотров" value={0} />
-      </div>
-      <div className='statistic-container'>
-        <Statistic title="Лайков" value={0} />
-      </div>
-      <div className='statistic-container'>
-        <Statistic title="Комментариев" value={0} />
-      </div>
-
-    </div>
-        
-      </div>
-      
+        );
 
       case '2':
         return (
           <div>
-            <Card
-              title="Название"
-              bordered={false}
-              style={{ width: 300 }}
-            >
-              <p>Дата создания</p>
-              <p>Краткая инфа</p>
-              <Button type="primary">Скачать отчет</Button>
-            </Card>
+            {loading ? (
+              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+                <Spin indicator={antIcon} />
+              </div>
+            ) : (
+              reports.map((report, index) => (
+                <Card key={index} title={report.title} bordered={false} style={{ width: 300, marginBottom: '20px' }}>
+                  <p>Дата создания: {report.creationDate}</p>
+                  <p>Краткая инфа: {report.summary}</p>
+                  <Button type="primary">Скачать отчет</Button>
+                </Card>
+              ))
+            )}
           </div>
         );
+
       default:
         return null;
     }
@@ -153,22 +170,21 @@ const PersonalArea = () => {
         <Menu
           theme="light"
           mode="inline"
-          defaultSelectedKeys={['1']}
+          defaultSelectedKeys={[selectedItemInitial]}
           items={items}
           onClick={handleMenuClick}
           style={{ background: '#fff' }}
         />
         <div className='Button_lc'>
-        <button onClick={handleLogout}>
-          Выйти
-        </button>
+          <button onClick={handleLogout}>
+            Выйти
+          </button>
         </div>
         <div className='Button_lc_back'>
-        <button onClick={handleChat}>
-         Чат
-        </button>
+          <button onClick={handleChat}>
+            Чат
+          </button>
         </div>
-
       </Sider>
 
       <Layout style={{ marginLeft: 200, background: '#fff' }}>

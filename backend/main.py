@@ -28,6 +28,7 @@ from models import *
 from compare import  compare
 from  report_test import *
 from hepls  import  *
+from typing import List
 import json
 
 
@@ -163,6 +164,17 @@ class UserInfo(BaseModel):
     class Config:
         orm_mode = True
 
+class ReportResponseSchema(BaseModel):
+    id: int
+    email: str
+    date: str
+    link: str
+
+    class Config:
+        orm_mode = True
+        from_attributes = True
+
+
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 @app.get("/api/user_info", response_model=UserInfo)
@@ -241,6 +253,25 @@ async def save_report(request: SaveReportRequest, token: str = Depends(oauth2_sc
     return {"message": "Report saved successfully"}
 
 
-@app.get("/api/get_reports")
-async def save_report():
-    pass
+@app.get("/api/get_reports", response_model=List[ReportResponseSchema])
+async def get_reports(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
+    credentials_exception = HTTPException(
+        status_code=401,
+        detail="Could not validate credentials",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        email: str = payload.get("sub")
+        if email is None:
+            raise credentials_exception
+    except JWTError:
+        raise credentials_exception
+
+    user = db.query(User).filter(User.email == email).first()
+    if user is None:
+        raise credentials_exception
+
+    reports = db.query(Report).filter(Report.email == email).all()
+    report_dicts = [ReportResponseSchema.from_orm(report).dict() for report in reports]
+    return report_dicts
