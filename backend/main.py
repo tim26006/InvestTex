@@ -199,8 +199,6 @@ async def compare_objects(request: Request):
 @app.post("/api/report")
 async def make_report(request: Request):
     body = await request.json() #массив json
-    report_data(body)
-    print(len(body))
     return {"report_link": report_data(body)}
 
 
