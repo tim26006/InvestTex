@@ -100,7 +100,7 @@ def read_root(message:Message):
             return {"response": "Нашел несколько площадок для Вас", "features":aye, "answer2":suka, "answer3":blyat, "otvet":True}
     else:
         lgots = help(str(message))
-        return {"response": lgots, 'lgots':1}
+        return {"response": lgots[0], 'lgots':1}
 
 # Routes
 @app.post("/api/register", response_model=dict)

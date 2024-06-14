@@ -5,8 +5,12 @@ import { Navigate } from 'react-router-dom'; // Use Navigate instead of Redirect
 import { useNavigate } from 'react-router-dom';
 import { Spin } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
+import { Col, Row, Statistic } from 'antd';
+import CountUp from 'react-countup';
 
 
+
+const formatter = (value) => <CountUp end={value} separator="," />;
 const antIcon = <LoadingOutlined style={{ fontSize: 100, color: 'red' }} spin />;
 const { Content, Sider } = Layout;
 const selectedItemInitial = '1';
@@ -69,18 +73,49 @@ const PersonalArea = () => {
   const renderMessage = () => {
     switch (selectedItem) {
       case '1':
-        return userInfo ? 
-        <div className='User_info'>
-          <h1 className='Title_info'>Ваши данные</h1>
-          <div className='text_user'>ФИО: {userInfo.fio}</div>
-          <div className='text_user'>Email: {userInfo.email}</div> 
-          <div className='text_user'>Организация: {userInfo.organization}</div> 
-          <div className='text_user'>Веб сайт: <a href={userInfo.website}>Перейти</a></div>
-          <div className='text_user'>Страна: {userInfo.country}</div>
-          <div className='text_user'>Город: {userInfo.city}</div>
-          </div> : <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-      <Spin indicator={antIcon} />
+        return <div>
+        {userInfo ? (
+          <div className='User_info'>
+            <h1 className='Title_info'>Ваши данные</h1>
+            <div className='text_user'>ФИО: {userInfo.fio}</div>
+            <div className='text_user'>Email: {userInfo.email}</div> 
+            <div className='text_user'>Организация: {userInfo.organization}</div> 
+            <div className='text_user'>Веб сайт: <a href={userInfo.website}>Перейти</a></div>
+            <div className='text_user'>Страна: {userInfo.country}</div>
+            <div className='text_user'>Город: {userInfo.city}</div>
+          </div>
+        ) : (
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+            <Spin indicator={antIcon} />
+          </div>
+        )}
+        <div className='User_active'>
+        
+
+      <div className='statistic-container'>
+        <Statistic title="Запросов" value={0} />
+      </div>
+      <div className='statistic-container'>
+        <Statistic title="Отчетов" value={0} />
+      </div>
+      <div className='statistic-container'>
+        <Statistic title="Сообщений" value={0} />
+      </div>
+      <div className='statistic-container'>
+        <Statistic title="Просмотров" value={0} />
+      </div>
+      <div className='statistic-container'>
+        <Statistic title="Лайков" value={0} />
+      </div>
+      <div className='statistic-container'>
+        <Statistic title="Комментариев" value={0} />
+      </div>
+
     </div>
+        
+      </div>
+      
+
       case '2':
         return (
           <div>
