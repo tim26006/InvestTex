@@ -98,7 +98,7 @@ function InputScreen() {
         // Проверяем значение lgots
         if (data.lgots === 1) {
             try {
-                const responseData = JSON.parse(data.response);
+                const responseData = data.response;
     
                 // Устанавливаем данные льгот для последующего использования
                 setLgotData(responseData);

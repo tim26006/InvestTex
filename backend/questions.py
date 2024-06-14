@@ -21,5 +21,6 @@ def define_them_question(text:str):
         return True
     if response == "[0]":
         return  False
+    print(response)
 
 

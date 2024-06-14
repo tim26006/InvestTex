@@ -27,7 +27,7 @@ from db import *
 from models import *
 from compare import  compare
 from  report_test import *
-from hepls  import  help
+from hepls  import  *
 import json
 
 
@@ -204,5 +204,43 @@ async def make_report(request: Request):
 
 
 @app.post("/api/save_report")
+async def save_report(request: SaveReportRequest, token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
+    credentials_exception = HTTPException(
+        status_code=HTTP_401_UNAUTHORIZED,
+        detail="Could not validate credentials",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        email: str = payload.get("sub")
+        if email is None:
+            raise credentials_exception
+    except JWTError:
+        raise credentials_exception
+
+    user = db.query(User).filter(User.email == email).first()
+    if user is None:
+        raise credentials_exception
+
+    # Save the report data to the database
+    new_report = Report(
+        email=user.email,
+        date=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        link=request.report_link
+    )
+    db.add(new_report)
+    try:
+        db.commit()
+        db.refresh(new_report)
+        logger.info("Report saved successfully for user: %s", user.email)
+    except Exception as e:
+        db.rollback()
+        logger.error("Error committing the new report to the database: %s", e)
+        raise HTTPException(status_code=500, detail="Internal server error")
+
+    return {"message": "Report saved successfully"}
+
+
+@app.get("/api/get_reports")
 async def save_report():
     pass

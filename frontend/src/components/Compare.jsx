@@ -22,6 +22,7 @@ function Compare ({ isOpen, onRequestClose, data1, data2, data3 })  {
     const [reportData, setReportData] = useState(null);
     const [compareData, setCompareData] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [savedSuccessfully, setSavedSuccessfully] = useState(false);
 
 
     const [isTooltipVisible, setIsTooltipVisible] = useState(false);
@@ -75,12 +76,34 @@ const handleTooltipToggle = () => {
   }, [token]);
 
         const saveReport =() =>{
+                if (reportData) {
+        setIsLoading(true);
 
+        const token = sessionStorage.getItem('access_token');
 
-
-
-
+        axios.post(
+            'http://127.0.0.1:8000/api/save_report',
+            { report_link: reportData },
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
             }
+        )
+        .then(response => {
+            console.log('Report saved successfully:', response.data);
+            // Handle any response if needed
+        })
+        .catch(error => {
+            console.error('There was an error!', error);
+        })
+        .finally(() => {
+            setIsLoading(false);
+        });
+    }
+};
+
 
         const handleReportGeneration = () => {
         const selectedData = [];
@@ -324,13 +347,13 @@ if (type3 === "Помещение") {
   )}
 
   {token && reportData &&(
-    <div className="link" onClick={saveReport}>
-      <a className="link_text" href={reportData}>
-        Сохранить в ЛК
-      </a>
-    </div>
-  )}
-</div>
+                <div className="link" onClick={saveReport}>
+                  <a className="link_text">
+                    Сохранить в ЛК
+                  </a>
+                </div>
+              )}
+            </div>
 
 
             <div className="report_block">

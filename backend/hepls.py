@@ -1,12 +1,11 @@
 import pickle
-import re
-from sklearn.neighbors import NearestNeighbors
-from sklearn.feature_extraction.text import TfidfVectorizer
 import pandas as pd
+import re
 import json
+import html
 
 
-def help(query:str):
+def help(query: str):
     lgots = []
     with open('./lgots/knn_model.pkl', 'rb') as model_file:
         knn = pickle.load(model_file)
@@ -34,10 +33,16 @@ def help(query:str):
             # Преобразование строки в словарь
             dict_row = place_row.iloc[0].to_dict()
 
-            # Конвертация словаря в JSON и добавление в результат
-            json_row = json.dumps(dict_row, ensure_ascii=False)
-            lgots.append(json_row)
-    return lgots[4]
+            # Добавление словаря в результат
+            lgots.append(dict_row)
+    cleaned_data = []
+    for item in lgots:
+        cleaned_item = {}
+        for key, value in item.items():
+            # Remove HTML entities and unwanted symbols
+            cleaned_value = html.unescape(value).strip().replace('\n', '').replace('<br />', '').replace('&quot;', '')
+            cleaned_item[key] = cleaned_value
+        cleaned_data.append(cleaned_item)
 
+    return cleaned_data
 
-print( help("Я занимаюсь животноводством. Какие льготы мне доступны?"))

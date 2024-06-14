@@ -41,12 +41,8 @@ class UserRegistration(BaseModel):
     password: str
 
 
-class Report(BaseModel):
-    email: EmailStr
-    date:str
-    link: str;
-
-
+class SaveReportRequest(BaseModel):
+    report_link: str
 
 class UserLogin(BaseModel):
     email: EmailStr
