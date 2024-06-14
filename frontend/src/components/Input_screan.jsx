@@ -128,7 +128,7 @@ function InputScreen() {
                 setLgotData(responseData);
     
                 // Отправляем только кнопку "Посмотреть льготы"
-                setMessages(prevMessages => [...prevMessages, { text: "Вот какие льготы", isButton: true, source: "Бот" }]);
+                setMessages(prevMessages => [...prevMessages, { text: "Вот какие меры поддержки", isButton: true, source: "Бот" }]);
             } catch (error) {
                 console.error("Error parsing JSON from response:", error);
             }
@@ -178,9 +178,9 @@ function InputScreen() {
                         <Card key={index} style={{ marginBottom: 10 }}>
                             <p className={`message-label ${message.source === "Бот" ? 'bot' : ''}`}>{message.source}</p>
                             <p style={{ fontSize: 18 }}>{message.text}</p>
-                            {message.isButton && message.text === "Вот какие льготы" && (
+                            {message.isButton && message.text === "Вот какие меры поддержки" && (
                                  <div className='button_check_offer'>
-                                <button onClick={() => setIsMapModalOpen2(true)}>Посмотреть льготы</button>
+                                <button onClick={() => setIsMapModalOpen2(true)}>Посмотреть меры поддержки</button>
                                 </div>
                             )}
                             {message.text === "Нашел несколько площадок для Вас" && (
