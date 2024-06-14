@@ -23,6 +23,7 @@ function InputScreen() {
     const [isDelayMessageSent, setIsDelayMessageSent] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [lgotData, setLgotData] = useState(null);
+    const token = sessionStorage.getItem('access_token');
 
     const messagesEndRef = useRef(null);
 
@@ -149,6 +150,7 @@ function InputScreen() {
         <div className='input'>
             <div className="messages">
                 {messages.length === 0 ? (
+                        {!token && (
                     <div className="welcome-message">Здравствуйте! Начните чат, введя сообщение ниже.</div>
                 ) : (
                     messages.map((message, index) => (
