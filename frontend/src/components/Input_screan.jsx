@@ -24,7 +24,7 @@ function InputScreen() {
     const [isLoading, setIsLoading] = useState(false);
     const [lgotData, setLgotData] = useState(null);
     const token = sessionStorage.getItem('access_token');
-
+    const [userInfo, setUserInfo] = useState(null);
     const messagesEndRef = useRef(null);
 
     useEffect(() => {
@@ -52,6 +52,26 @@ function InputScreen() {
     const handleChange = (e) => {
         setInputValue(e.target.value);
     };
+
+    useEffect(() => {
+        if (token) {
+          fetch('http://localhost:8000/api/user_info', {
+            method: 'GET',
+            headers: {
+              'Authorization': `Bearer ${token}`
+            }
+          })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return response.json();
+          })
+          .then(data => setUserInfo(data))
+          .catch(error => console.error('Error fetching user info:', error));
+        }
+      }, [token]);
+
 
     const handleClick = () => {
         if (!inputValue.trim()) {
@@ -150,8 +170,9 @@ function InputScreen() {
         <div className='input'>
             <div className="messages">
                 {messages.length === 0 ? (
-                        {!token && (
-                    <div className="welcome-message">Здравствуйте! Начните чат, введя сообщение ниже.</div>
+                        <div className="welcome-message">
+                        Здравствуйте, {userInfo && userInfo.fio ?  userInfo.fio.split(' ')[1] : 'Гость'}! Начните чат, введя сообщение ниже.
+                    </div>
                 ) : (
                     messages.map((message, index) => (
                         <Card key={index} style={{ marginBottom: 10 }}>
