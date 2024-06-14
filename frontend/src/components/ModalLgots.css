@@ -15,27 +15,34 @@
 }
 
 
-.custom-button {
-    display: block; 
-    margin-top: 20px; 
-    text-align: center;
-    background-color: #ef0f33 !important; 
-    color: white; 
-    padding: 10px 20px; 
-    text-decoration: none; 
-    border-radius: 20px; 
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
-    transition: background-color 1s ease; 
-    width: 200px; 
-    height: 50px; 
-    line-height: 30px; 
-    font-size: 16px; 
-    left: 30%;
-  }
-  
-  .custom-button:hover {
-    background-color: #a00a24  !important; 
-  }
+.custom-button_lgots {
+  background-color: #ef0f33 !important; 
+  color: white; 
+  padding: 10px 20px; 
+  text-decoration: none;
+  font-family: Arial;
+  font-size: 18px; 
+  border-radius: 20px; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); 
+  transition: background-color 1s ease; /* Faster transition */
+  width: 200px; 
+  height: 50px; 
+  margin-top: 30px;
+  text-align: center; /* Center text horizontally */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer; /* Ensure cursor changes on hover */
+  left: 30%;
+}
+
+.custom-button_lgots:hover {
+  background-color: #a00a24 !important; /* Darker color on hover */
+}
+
+
+
+
 
 
   .title_Modallog {

@@ -697,3 +697,37 @@
   border-radius: 8px; /* Закругленные углы */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Тень для визуального эффекта */
 }
+
+
+.card-flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; /* Расстояние между карточками */
+}
+
+.card-item {
+  width: calc(25% - 20px); /* Ширина карточки для 4 карточек в строке */
+  margin-bottom: 20px; /* Отступ между карточками */
+}
+
+
+.custom-button {
+  font-family: Arial;
+  font-size: 18px;
+  margin-right: 10px;
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+  border-radius: 20px;
+  padding: 10px 20px;
+  transition: background-color 0.3s;
+  width: 200px;
+  height: 50px;
+  margin-top: 20px;
+  left: 20%;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.custom-button:hover {
+  background-color: #c8c8c8 !important;
+}

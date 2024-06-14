@@ -34,7 +34,7 @@ function ModalLgots({ isOpen, onRequestClose, data }) {
             type="primary" 
             href={URL} 
             target="_blank" // Открывать ссылку в новом окне
-            className="custom-button"
+            className="custom-button_lgots"
             rel="noopener noreferrer" // Рекомендуется добавить для безопасности
           >
             Перейти

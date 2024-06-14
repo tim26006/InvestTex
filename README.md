@@ -8,6 +8,7 @@
 - sqlalchemy
 - PostgreSQL
 - Облако Сloud.ru
+- Яндекс Диск
 ## Frontend - React
 - Talwind CSS
 - Ant Design 5.0

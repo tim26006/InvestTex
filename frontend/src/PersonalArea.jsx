@@ -136,16 +136,26 @@ const PersonalArea = () => {
                 <Spin indicator={antIcon} />
               </div>
             ) : (
-              reports.map((report, index) => (
-                <Card key={index} title={report.title} bordered={false} style={{ width: 300, marginBottom: '20px' }}>
-                  <p>Дата создания: {report.creationDate}</p>
-                  <p>Краткая инфа: {report.summary}</p>
-                  <Button type="primary">Скачать отчет</Button>
-                </Card>
-              ))
+              <div className='card-flex-container'>
+                {reports.map((report, index) => (
+                  <Card key={report.id}  title={<div style={{ textAlign: 'center', fontFamily: 'Arial', fontSize: '26px' }}>Отчет №{index + 1}</div>} bordered={false} className='card-item'>
+                    <div style={{fontFamily: 'Arial', fontSize: '18px'}}>Дата создания: {report.date}</div>
+                    <Button
+                    href={report.link}
+                    target="_blank"
+                    type="primary"
+                    className="custom-button"
+                  >
+                    Скачать отчет
+                  </Button>
+
+                  </Card>
+                ))}
+              </div>
             )}
           </div>
         );
+        
 
       default:
         return null;
