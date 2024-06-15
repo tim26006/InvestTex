@@ -87,18 +87,22 @@ const Reg = () => {
           <Input placeholder="ИНН" value={inn} onChange={e => setInn(e.target.value)} />
           <Input placeholder="Веб-сайт организации" value={website} onChange={e => setWebsite(e.target.value)} />
           
-          <Select placeholder="Отрасль деятельности" value={industry} onChange={handleChangeIndustry} style={{ width: '100%' }}>
+          <Select placeholder="Отрасль деятельности" value={industry} onChange={handleChangeIndustry} style={{ width: '100%', marginBottom: '15px' }}>
             <Option value="IT">IT</Option>
             <Option value="Финансы">Финансы</Option>
             <Option value="Медицина">Медицина</Option>
-            
+            <Option value="Строительство">Строительство</Option>
+            <Option value="Добывающая промышленность">Добываюшая промышленность</Option>
+            <Option value="Сельское хозяйство">Сельское хозяйство</Option>
+            <Option value="Аудиторская деятельность">Аудиторская деятельность</Option>
+            <Option value="Торговля">Торговля</Option>
           </Select>
 
           <Input placeholder="Страна" value={country} onChange={e => setCountry(e.target.value)} />
           <Input placeholder="Город" value={city} onChange={e => setCity(e.target.value)} />
           <Input placeholder="Должность" value={position} onChange={e => setPosition(e.target.value)} />
         <Input placeholder="Пароль" type="password" value={password} onChange={e => setPassword(e.target.value)} />
-          <Button type="primary" onClick={handleClick}  >Подтвердить</Button>
+          <Button type="primary" onClick={handleClick}  disabled={!isCaptchaSuccessful}>Подтвердить</Button>
           <ReCAPTCHA
             sitekey={'6LemcvQpAAAAAJQiju9djqLGa8SmBRVEm9Z1X5lL'}
             onChange={onChange}
