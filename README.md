@@ -55,7 +55,7 @@
 
 `uvicorn main:app` - запуск локально, можно добавить флак `-- reload` для динамического обновления
 
-## Backend - Fast api
+## Backend 
 - Transformers
 - OpenAI GPT2 
 - RuGPT-3
@@ -64,7 +64,7 @@
 - PostgreSQL
 - Облако Сloud.ru
 - Яндекс Диск
-## Frontend - React
+## Frontend
 - Talwind CSS
 - Ant Design 5.0
 - Axios
