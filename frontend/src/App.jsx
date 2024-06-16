@@ -5,6 +5,7 @@ import Home from './Home';
 import Reg from './Reg';
 import Login from './Login';
 import ProtectedRoute from './LocalStorage.jsx'; // Import the consolidated ProtectedRoute component
+import PersonalArea from './PersonalArea.jsx';
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/reg" element={<Reg />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/personal" element={<ProtectedRoute />} /> {/* Protected route */}
+        <Route path="/personal" element={<PersonalArea />} /> {/* Protected route */}
       </Routes>
     </Router>
   );

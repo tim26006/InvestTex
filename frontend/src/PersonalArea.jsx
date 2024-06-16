@@ -32,7 +32,7 @@ const PersonalArea = () => {
 
   useEffect(() => {
     if (token) {
-      fetch('http://localhost:8000/api/user_info', {
+      fetch('http://147.45.158.141:8000/api/user_info', {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -52,7 +52,7 @@ const PersonalArea = () => {
   useEffect(() => {
     if (selectedItem === '2') {
       setLoading(true);
-      axios.get('http://localhost:8000/api/get_reports', {
+      axios.get('http://147.45.158.141:8000/api/get_reports', {
         headers: {
           'Authorization': `Bearer ${token}`
         }

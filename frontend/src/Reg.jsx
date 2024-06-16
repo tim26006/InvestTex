@@ -54,7 +54,7 @@ const Reg = () => {
 
     try {
         console.log(data)
-      const response = await axios.post('http://localhost:8000/api/register', data);
+      const response = await axios.post('http://147.45.158.141:8000/api/register', data);
 
       console.log(response.data);
       navigate('/personal');
