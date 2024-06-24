@@ -73,5 +73,6 @@
 - ReCAPTCHA
 - React Yandex Maps
 - React-spinners
+- Three.js
 
 
