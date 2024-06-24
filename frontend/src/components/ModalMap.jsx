@@ -9,11 +9,16 @@ import { IoWaterOutline } from "react-icons/io5";
 import { FcElectricity } from "react-icons/fc";
 import Compare from './Compare';
 
+import Dmodal from './3DMODAL';
+
+
+
 const MapModal = ({ isOpen, onRequestClose, mapData, mapDataone, mapDatatwo }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const [isCompareModalOpen, setIsCompareModalOpen] = useState(false);
 
+    const [isDmodalOpen, setIsDmodalOpen] = useState(false)
 
     const [currentPage, setCurrentPage] = useState(1);
 
@@ -21,6 +26,10 @@ const MapModal = ({ isOpen, onRequestClose, mapData, mapDataone, mapDatatwo }) =
         setCurrentPage(page);
     };
 
+
+    const showDmodal = () => {
+        setIsDmodalOpen(true);
+    };
 
     const showCompareModal = () => {
         setIsCompareModalOpen(true);
@@ -192,10 +201,20 @@ const MapModal = ({ isOpen, onRequestClose, mapData, mapDataone, mapDatatwo }) =
                                 />
 
                             )}
-                            
+
+
+
+
+
                         </Map>
-                       
+                      
+                        <a href={`https://yandex.ru/maps/?ll=${arr_coordinates[1]}%2C${arr_coordinates[0]}&panorama[point]=${arr_coordinates[1]}%2C${arr_coordinates[0]}&z=17&l=map&mode=panorama`} target="_blank" rel="noopener noreferrer" class="panorama-link">
+    Панорама
+</a>
+
                     </YMaps>
+                    <button class="D-link" onClick={showDmodal}>3D модель</button>
+                    
 
                     
 
@@ -269,9 +288,14 @@ const MapModal = ({ isOpen, onRequestClose, mapData, mapDataone, mapDatatwo }) =
                                     modules={["geoObject.addon.balloon"]}
                                 />
                             )}
+
                         </Map>
                     </YMaps>
                     
+                    <a href={`https://yandex.ru/maps/?ll=${arr_coordinates1[1]}%2C${arr_coordinates1[0]}&panorama[point]=${arr_coordinates1[1]}%2C${arr_coordinates1[0]}&z=17&l=map&mode=panorama`} target="_blank" rel="noopener noreferrer" class="panorama-link">
+    Панорама
+</a>
+<button class="D-link" onClick={showDmodal}>3D модель</button>           
 
                     <p className="descriptionMap" style={{ fontFamily: 'Arial', fontSize: '20px' }}>
                         <li className="vertical-list-item">
@@ -342,9 +366,15 @@ const MapModal = ({ isOpen, onRequestClose, mapData, mapDataone, mapDatatwo }) =
                                     modules={["geoObject.addon.balloon"]}
                                 />
                             )}
+
                         </Map>
                     </YMaps>
-                   
+                    
+                    <a href={`https://yandex.ru/maps/?ll=${arr_coordinates2[1]}%2C${arr_coordinates2[0]}&panorama[point]=${arr_coordinates2[1]}%2C${arr_coordinates2[0]}&z=17&l=map&mode=panorama`} target="_blank" rel="noopener noreferrer" class="panorama-link">
+    Панорама
+</a>
+
+<button class="D-link" onClick={showDmodal}>3D модель</button>
 
                     <p className="descriptionMap" style={{ fontFamily: 'Arial', fontSize: '20px' }}>
                         <li className="vertical-list-item">
@@ -404,7 +434,7 @@ const MapModal = ({ isOpen, onRequestClose, mapData, mapDataone, mapDatatwo }) =
                     </div>
                     <div className='button_compare' onClick={showCompareModal}>Сравнить</div>
                     <Compare isOpen={isCompareModalOpen} onRequestClose={() => setIsCompareModalOpen(false)} data1={mapData} data2={mapDataone} data3={mapDatatwo}/>
-
+                    <Dmodal isOpen={isDmodalOpen} onRequestClose={() => setIsDmodalOpen(false)}/>
         </Modal>
     );
 };

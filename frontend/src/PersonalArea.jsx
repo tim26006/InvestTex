@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { UploadOutlined, UserOutlined, LoadingOutlined } from '@ant-design/icons';
-import { Layout, Menu, theme, Card, Button, Spin, Statistic } from 'antd';
+import { Layout, Menu, theme, Card, Button, Spin, Tooltip, message } from 'antd';
 import { Navigate, useNavigate } from 'react-router-dom';
 import CountUp from 'react-countup';
 import axios from 'axios';
+
 const formatter = (value) => <CountUp end={value} separator="," />;
 const antIcon = <LoadingOutlined style={{ fontSize: 100, color: 'red' }} spin />;
 const { Content, Sider } = Layout;
@@ -85,6 +86,20 @@ const PersonalArea = () => {
     navigate("/");
   };
 
+  const copyToClipboard = (text) => {
+    const textField = document.createElement('textarea');
+    textField.innerText = text;
+    document.body.appendChild(textField);
+    textField.select();
+    try {
+      document.execCommand('copy');
+      message.success('Ссылка скопирована в буфер обмена!');
+    } catch (err) {
+      message.error('Ошибка при копировании ссылки: ' + err);
+    }
+    document.body.removeChild(textField);
+  };
+
   const renderMessage = () => {
     switch (selectedItem) {
       case '1':
@@ -118,24 +133,23 @@ const PersonalArea = () => {
             ) : (
               <div className='card-flex-container'>
                 {reports.map((report, index) => (
-                  <Card key={report.id}  title={<div style={{ textAlign: 'center', fontFamily: 'Arial', fontSize: '26px' }}>Отчет №{index + 1}</div>} bordered={false} className='card-item'>
+                  <Card key={report.id} title={<div style={{ textAlign: 'center', fontFamily: 'Arial', fontSize: '26px' }}>Отчет №{index + 1}</div>} bordered={false} className='card-item'>
                     <div style={{fontFamily: 'Arial', fontSize: '18px'}}>Дата создания: {report.date}</div>
+                    <Tooltip title="Просто вствьте ссылку в поисковую строку">
                     <Button
-                    href={report.link}
-                    target="_blank"
-                    type="primary"
-                    className="custom-button"
-                  >
-                    Скачать отчет
-                  </Button>
-
+                      onClick={() => copyToClipboard(report.link)}
+                      type="primary"
+                      className="custom-button"
+                    >
+                      Скачать отчет
+                    </Button>
+                    </Tooltip>
                   </Card>
                 ))}
               </div>
             )}
           </div>
         );
-        
 
       default:
         return null;

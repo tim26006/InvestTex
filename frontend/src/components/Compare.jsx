@@ -10,7 +10,7 @@ import { BsLightbulb } from "react-icons/bs";
 import axios from 'axios';
 import { LoadingOutlined } from '@ant-design/icons';
 import { LuLoader } from "react-icons/lu";
-
+import { message } from 'antd';
 
 
 
@@ -41,7 +41,7 @@ const handleTooltipToggle = () => {
         "data3": [data3["Название площадки"], data3["Стоимость объекта, руб. (покупки или месячной аренды)"], data3["Свободная площадь здания, сооружения, помещения, кв. м"], data3["Форма сделки"]]
       };
 
-      axios.post('http://147.45.158.141:8000/api/compare', dataToSend, {
+      axios.post('http://127.0.0.1:8000/api/compare', dataToSend, {
         headers: {
           'Content-Type': 'application/json'
         }
@@ -60,7 +60,7 @@ const handleTooltipToggle = () => {
   }, [isOpen, data1, data2, data3]);
   useEffect(() => {
     if (token) {
-      fetch('http://147.45.158.141:8000/api/user_info', {
+      fetch('http://127.0.0.1:8000/api/user_info', {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -84,7 +84,7 @@ const handleTooltipToggle = () => {
         const token = sessionStorage.getItem('access_token');
 
         axios.post(
-            'http://147.45.158.141:8000/api/save_report',
+            'http://127.0.0.1:8000/api/save_report',
             { report_link: reportData },
             {
                 headers: {
@@ -107,6 +107,19 @@ const handleTooltipToggle = () => {
 };
 
 
+
+const copyToClipboard = (text) => {
+  navigator.clipboard.writeText(text)
+    .then(() => {
+      message.success('Ссылка скопирована в буфер обмена!');
+    })
+    .catch((err) => {
+      message.error('Ошибка при копировании ссылки: ' + err);
+    });
+};
+
+
+
         const handleReportGeneration = () => {
         const selectedData = [];
         if (selectedObject1) selectedData.push(data1);
@@ -116,7 +129,7 @@ const handleTooltipToggle = () => {
         if (selectedData.length > 0) {
             setIsLoading(true);
 
-            axios.post('http://147.45.158.141:8000/api/report', selectedData, {
+            axios.post('http://127.0.0.1:8000/api/report', selectedData, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -340,13 +353,16 @@ if (type3 === "Помещение") {
 
 
 <div>
-  {!token && reportData &&(
+{!token && reportData &&(    
     <div className="link">
-      <a className="link_text" href={reportData}>
-        Скачать
-      </a>
+      <a
+  className="link_text"
+  onClick={() => copyToClipboard(reportData)}
+>
+  Скачать
+</a>
     </div>
-  )}
+    )}
 
   {token && reportData &&(
                 <div className="link" onClick={saveReport}>

@@ -10,7 +10,7 @@ function Header() {
 
   useEffect(() => {
     if (token) {
-      fetch('http://147.45.158.141:8000/api/user_info', {
+      fetch('http://127.0.0.1:8000/api/user_info', {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`

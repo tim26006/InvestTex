@@ -55,7 +55,7 @@ function InputScreen() {
 
     useEffect(() => {
         if (token) {
-          fetch('http://147.45.158.141:8000/api/user_info', {
+          fetch('http://127.0.0.1:8000/api/user_info', {
             method: 'GET',
             headers: {
               'Authorization': `Bearer ${token}`
@@ -91,10 +91,11 @@ function InputScreen() {
             setIsDelayMessageSent(true);
         }
 
-        axios.post('http://147.45.158.141:8000/api/messages', newMessage, {
+        axios.post('http://127.0.0.1:8000/api/messages', newMessage, {
             headers: {
                 'Content-Type': 'application/json'
-            }
+            },
+            withCredentials: true
         })
         .then(response => {
             setIsLoading(false);
